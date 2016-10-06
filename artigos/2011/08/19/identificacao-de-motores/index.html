@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Identificação de motores - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2011/08/19/identificacao-de-motores/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="controle,motor,identificação,modelo" />
+        <meta name="description" content="O controle de motores não é uma ciência nova. No entanto, pode ser difícil entender o básico quando os cursos de graduação ensinam apenas a realizar o controle de fórmulas genéricas, cheias de números que não significam nada. Fiz este artigo com base numa pesquisa que fiz com um amigo ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Identificação de motores"/>
+        <meta property="og:url" content="../../../../../artigos/2011/08/19/identificacao-de-motores/"/>
+        <meta property="og:description" content="O controle de motores não é uma ciência nova. No entanto, pode ser difícil entender o básico quando os cursos de graduação ensinam apenas a realizar o controle de fórmulas genéricas, cheias de números que não significam nada. Fiz este artigo com base numa pesquisa que fiz com um amigo ..."/>
+        <meta property="article:published_time" content="2011-08-19" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="controle" />
+            <meta property="article:tag" content="motor" />
+            <meta property="article:tag" content="identificação" />
+            <meta property="article:tag" content="modelo" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2011/08/19/identificacao-de-motores/"
+                       rel="bookmark"
+                       title="Permalink to Identificação de motores">
+                        Identificação de motores
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2011-08-19T09:02:00-03:00"> sex 19 agosto 2011</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/controle/">controle</a>
+        /
+	<a href="../../../../../tag/motor/">motor</a>
+        /
+	<a href="../../../../../tag/identificacao/">identificação</a>
+        /
+	<a href="../../../../../tag/modelo/">modelo</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>O controle de motores não é uma ciência nova. No entanto, pode ser difícil
+entender o básico quando os cursos de graduação ensinam apenas a realizar o
+controle de fórmulas genéricas, cheias de números que não significam nada.</p>
+<p>Fiz este artigo com base numa pesquisa que fiz com um amigo. Depois de muitas
+matérias e aulas de controle, não sabíamos como controlar um simples motor, que
+faz parte de 99% dos sistemas de controle práticos.</p>
+<p>Enfim, chegamos a uma conclusão: precisávamos transformar o motor em uma
+equação controlável, ou seja, que só possuísse a variável <span class="math">\(s\)</span> no
+domínio de Laplace. Para projetos de engenharia "de verdade", os motores
+costumam ter seus parâmetros disponíveis em <em>datasheets</em> (folhas de dados).
+Nos pequenos projetos domésticos, boa sorte pra quem quer encontrar algo bem
+especificado. Quando/se encontrar, vai ser caro.</p>
+<p>Assim, precisamos aplicar algumas teorias de
+<a class="reference external" href="https://en.wikipedia.org/wiki/System_identification">identificação</a> para
+modelar o motor matematicamente e aplicar alguns experimentos bem práticos
+para determinar o valor das constantes do motor.</p>
+<div class="section" id="modelagem-matematica-do-motor">
+<h2>Modelagem matemática do motor</h2>
+<p>Para controlar a velocidade de um motor DC é necessário obter sua função
+de transferência <span class="math">\(G(s)=\frac{\Omega(s)}{E(s)}\)</span>, onde
+<span class="math">\(\Omega(s)\)</span> e <span class="math">\(E(s)\)</span> são, respectivamente, as
+transformadas de Laplace (<span class="math">\(\mathcal L\)</span>) da velocidade angular do eixo do
+motor <span class="math">\(\omega(t)\)</span> e
+da tensão aplicada em seus terminais <span class="math">\(e(t)\)</span>.</p>
+<p>Um modelo simplificado de motor (apresentado na figura <a class="reference internal" href="#fig-analogo">1</a>)
+envolve uma resistência, derivada dos fios e dos contatos entre o rotor
+e as escovas, uma indutância devida aos enrolamentos dos fios e uma
+<a class="reference external" href="https://pt.wikipedia.org/wiki/Força_contra-eletromotriz">força contra-eletromotriz</a>
+gerada pela rotação do eixo, de acordo com a <a class="reference external" href="https://pt.wikipedia.org/wiki/Lei_de_Lenz">lei de Lenz</a>.</p>
+<p>Na figura:</p>
+<ul class="simple">
+<li><span class="math">\(\omega(t)\)</span> é a velocidade angular [rad/s]</li>
+<li><span class="math">\(E(s)\)</span> é a tensão aplicada no motor [V]</li>
+<li><span class="math">\(R\)</span> é a resistência interna do motor [<span class="math">\(\Omega\)</span>]</li>
+<li><span class="math">\(K\)</span> é a constante de torque do motor [V/(rad/s)]</li>
+<li><span class="math">\(J\)</span> é a constante de inércia do conjunto do motor
+[Kg/m²].</li>
+</ul>
+<p>Para motores comerciais de pequeno porte pode-se desprezar a indutância,
+pois a reatância indutiva <span class="math">\(\omega L\)</span> é pequena em relação à
+resistência. Isso ocorre pois motores em geral não respondem a estímulos
+em frequências elevadas (acima de 40 Hz) e a indutância das bobinas é
+baixa (abaixo de 1 mH).</p>
+<div class="figure" id="fig-analogo" style="max-width:100%;width:475px;margin-left:auto;margin-right:auto;height:auto">
+<img alt="" src="../../../../../artigos/Motor/modelo-motor.png" style="max-width:100%;width:475px;margin-left:auto;margin-right:auto;height:auto"><div class="caption">Figura 1: Parte elétrica (esquerda) e análogo elétrico da parte mecânica (direita).</div>
+</div>
+<p>Do lado esquerdo do circuito elétrico e pela Lei de Ohm temos que:</p>
+<div class="math">\begin{equation}
+i(t)=\frac{e(t)-K_m\omega(t)}{R} \label{eq_corrente}
+\end{equation}
+</div>
+<p>Quando é utilizado um sistema de unidades coerente, como é o caso do SI,
+os valores das constantes de força contra-eletromotriz e de torque são
+iguais. Por isso, daqui para frente, elas são chamadas apenas de
+<span class="math">\(K\)</span>.</p>
+<div class="math">
+\begin{equation*}
+K_m=K_p=K
+\end{equation*}
+</div>
+<p>O torque gerado é proporcional à corrente na armadura do motor, então:</p>
+<div class="math">
+\begin{equation*}
+T(t)=K i(t)=\frac{K e(t)-K^2\omega(t)}{R}=J\dot{\omega}(t)
+\end{equation*}
+</div>
+<p>reagrupando os termos, obtemos:</p>
+<div class="math">
+\begin{equation*}
+RJ\dot{\omega}(t)+K^{2}\omega(t)=Ke(t)
+\end{equation*}
+</div>
+<p>A transformada de Laplace da equação acima, considerando condições
+iniciais nulas, é dada por:</p>
+<div class="math">
+\begin{equation*}
+(RJs+K^2)\Omega(s)=KE(s)
+\end{equation*}
+</div>
+<p>logo,</p>
+<div class="math">\begin{equation}
+\Omega(s)=\frac{K}{RJs+K^2}E(s)=\frac{\frac{K}{RJ}}{s+\frac{K^2}{RJ}}E(s)
+\label{eq_omega_laplace}
+\end{equation}
+</div>
+<p>assim obtemos um modelo para o comportamento do motor. Deve-se agora
+determinar o valor das constantes, o que será feito através dos
+experimentos a seguir.</p>
+<p>A determinação das constantes <span class="math">\(R\)</span> e <span class="math">\(K\)</span> é feita através de
+experimentos utilizando apenas medidas em regime estacionário,
+utilizando os dados para realizar uma regressão linear. Disto obtém-se
+retas cujas tangentes são os valores desejados.</p>
+<p>Para obter <span class="math">\(R\)</span>, nota-se que, a partir da equação</p>
+<div class="math">
+\begin{equation*}
+R=\frac{e(t)-K\omega(t)}{i(t)}
+\end{equation*}
+</div>
+<p>Para anular o termo da força contra-eletromotriz, podemos então travar o
+eixo do motor. Assim,</p>
+<div class="math">\begin{equation}
+R=\frac{e(t)}{i(t)}
+\label{eq_resistencia}
+\end{equation}
+</div>
+<p>o que será usado no primeiro experimento.</p>
+<p>Ao aplicar uma tensão fixa nos terminais do motor, o mesmo irá adquirir
+velocidade até esta se estabilizar em um valor. Isto pode ser utilizado
+para determinar o valor da constante de força contra-eletromotriz
+<span class="math">\(K\)</span>. Matematicamente, fazendo <span class="math">\(E(s)=Eo/s\)</span>
+(fazendo o sinal de referência ser um degrau com amplitude <span class="math">\(E_0\)</span>, ou seja
+<span class="math">\(e(t)=E_0 u(t)\)</span>) na equação \ref{eq_omega_laplace} e aplicando o
+<a class="reference external" href="https://en.wikipedia.org/wiki/Final_value_theorem">Teorema do Valor Final</a>,
+obtém-se, no regime estacionário,</p>
+<div class="math">
+\begin{equation*}
+\lim_{t\rightarrow\infty} \omega(t)=\lim_{s\rightarrow 0} s\Omega(s)=
+\lim_{s\rightarrow 0}s \frac{K}{RJs+K^2}\frac{E_0}{s}=
+\lim_{s\rightarrow 0}\frac{K}{RJs+K^2}E_0=\frac{KE_0}{K^2}=\frac{E_0}{K}
+\end{equation*}
+</div>
+<p>logo, no regime estacionário (<span class="math">\(t\rightarrow\infty\)</span>),</p>
+<div class="math">\begin{equation}
+K=\frac{E_0}{\omega}
+\label{eq_K}
+\end{equation}
+</div>
+<p>Assim, podemos plotar um gráfico tensão <span class="math">\(\times\)</span> velocidade, e
+de sua tangente obteremos o valor de <span class="math">\(K\)</span>. Isto será feito no
+<a class="reference internal" href="#experimento-2">experimento 2</a>.</p>
+<p>Já para obter o valor da constante <span class="math">\(J\)</span>, podemos verificar o
+comportamento temporal de <span class="math">\(\omega(t)\)</span>. Separando em frações
+parciais a equação \ref{eq_omega_laplace}, temos:</p>
+<div class="math">
+\begin{equation*}
+\Omega(s)= \frac{1}{s}\frac{\frac{K}{RJ}E_0}{s+\frac{K^2}{RJ}}=\frac{A_1}{s}+\frac{A_2}{s+\frac{K^2}{RJ}}
+\end{equation*}
+</div>
+<div class="math">
+\begin{equation*}
+A_1=\frac{\frac{K}{RJ}E_0}{\frac{K^2}{RJ}}=\frac{E_0}{K}
+\end{equation*}
+</div>
+<div class="math">
+\begin{equation*}
+A_2=\frac{\frac{K}{RJ}E_0}{-\frac{K^2}{RJ}}=-\frac{E_0}{K}
+\end{equation*}
+</div>
+<p>Logo,</p>
+<div class="math">
+\begin{equation*}
+\Omega(s)=\frac{\frac{E_0}{K}}{s}+\frac{-\frac{E_0}{K}}{s+\frac{K^2}{RJ}}
+\end{equation*}
+</div>
+<p>Realizando a transformada inversa de Laplace</p>
+<div class="math">\begin{equation}
+\omega(t)=\frac{E_0}{K}\left(1-e^{-\frac{K^2}{RJ}t}\right)
+\label{eq_omega_tempo}
+\end{equation}
+</div>
+<p>Como já temos os valores de <span class="math">\(R\)</span> e <span class="math">\(K\)</span>, podemos realizar um
+experimento para determinar <span class="math">\(J\)</span>, observando a resposta do motor no
+transiente de uma entrada degrau. Isto é o <a class="reference internal" href="#experimento-3">experimento 3</a>.</p>
+<p>Observação 1: a constante de tempo da equação exponencial será
+<span class="math">\(\tau=\frac{RJ}{K^2}\)</span>.</p>
+<p>Observação 2: a equação \ref{eq_omega_tempo} é um valor constante menos uma curva
+exponencial. Isto pode ser utilizado para preparar os dados obtidos no
+experimento, para fazer um <a class="reference external" href="https://en.wikipedia.org/wiki/Curve_fitting"><em>curve fit</em></a>
+linear ou exponencial.</p>
+</div>
+<div class="section" id="preparacao">
+<h2>Preparação</h2>
+<p>Como todo procedimento experimental, há alguns detalhes que devem ser
+preparados com antecedência, para evitar perder tempo durante a execução
+do experimento.</p>
+<p>Primeiramente, deve-se ter:</p>
+<ul class="simple">
+<li>Motor a ser testado</li>
+<li>Sensor de velocidade angular para o motor</li>
+<li>Fonte de tensão DC ajustável</li>
+<li>Amperímetro e voltímetro</li>
+<li>Computador (recomendável ter o MATLAB instalado)</li>
+</ul>
+<p>O sensor de velocidade angular para o motor pode ser em várias formas.
+Pode-se ter um sensor de velocidade acoplado através de engrenagens, ou
+outro motor de características conhecidas acoplado por polias, ou, como
+foi utilizado neste experimento, um encoder de quadratura.</p>
+<p>Um encoder de quadratura, mais especificamente um conjunto com dois
+sensores de efeito Hall, mede a variação da posição angular do motor,
+gerando em sua saída duas ondas quadradas.</p>
+<p>Quando estas duas ondas são combinadas, elas podem ser interpretadas
+como um valor em código Gray de dois bits. Interpretando este código
+como um código cíclico, pode-se inferir que quando o valor se desloca
+para um lado o motor se moveu em um sentido e vice-versa, como mostrado
+na figura <a class="reference internal" href="#fig-encoder-gray">2</a>.</p>
+<div class="figure" id="fig-encoder-gray" style="max-width:500px;margin-right:auto;margin-left:auto">
+<object data="../../../../../artigos/Motor/encoder_gray.svg" type="image/svg+xml"></object><div class="caption">Figura 2: 
+Saída do encoder interpretada como um código Gray.</div>
+</div>
+<p>Outra forma mais simples (e normalmente com menos ruído) de se ler a
+saída de um encoder de quadratura é observar seu comportamento nas
+bordas da onda, mais precisamente em apenas uma das bordas de uma das
+ondas. Por exemplo, pode-se observar a borda de subida da onda na
+primeira saída do encoder. Quando houver esta borda de subida,
+verifica-se a situação da onda na segunda saída do encoder. Se a segunda
+saída estiver em nível alto, o motor girou um passo do encoder em uma
+direção. Se a segunda saída estiver em nível baixo, o motor girou na
+outra direção (figura <a class="reference internal" href="#fig-encoder-borda">3</a>). O tempo entre uma borda de
+subida e a próxima determina a velocidade em termos de passos, da qual
+se obtém a velocidade angular ao se dividir pelo número de passos para
+se completar uma volta.</p>
+<div class="figure" id="fig-encoder-borda" style="max-width:500px;margin-right:auto;margin-left:auto">
+<object data="../../../../../artigos/Motor/encoder_borda.svg" type="image/svg+xml"></object><div class="caption">Figura 3: 
+Saída do encoder interpretada a partir de uma das bordas de subida.</div>
+</div>
+<p>Uma forma simples de se ler estas duas saídas é utilizar um
+microcontrolador. A placa utilizada para este fim foi o
+<a class="reference external" href="https://en.wikipedia.org/wiki/Arduino">Arduino Uno</a>, que
+é uma plataforma bastante popular e de fácil programação.</p>
+<p>O programa utilizado está em anexo, com comentários. Seu funcionamento é
+baseado em uma interrupção de mudança de pino, onde é implementado o
+método por bordas da figura <a class="reference internal" href="#fig-encoder-borda">3</a>.</p>
+<p>A leitura da velocidade da roda se dá basicamente em dois modos. O modo
+de operação pode ser mudado facilmente trocando-se apenas um parâmetro
+de configuração.</p>
+<p>O primeiro modo, que foi chamado de <tt class="docutils literal">STEP_TIME</tt> realiza a contagem de
+pulsos a cada segundo, obtendo a velocidade em radianos por segundo a
+partir da fórmula</p>
+<div class="math">
+\begin{equation*}
+\omega=\frac{2\pi\times\textrm{passos em um segundo}}{\textrm{passos por volta}} \textrm{[rad/s]}
+\end{equation*}
+</div>
+<p>Este modo é utilizado para se obter maior precisão da velocidade no
+regime estacionário, em que a velocidade não se altera durante a
+medição. Por isso, é utilizado no <a class="reference internal" href="#experimento-2">experimento 2</a>.</p>
+<p>Já o segundo modo, chamado de <tt class="docutils literal">TIME_STEP</tt>, mede o tempo gasto entre
+cada passo, obtendo então a velocidade a partir da fórmula</p>
+<div class="math">
+\begin{equation*}
+\omega=\frac{2\pi 10^6}{\textrm{passos por volta}\times\textrm{tempo do passo em microssegundos}} \textrm{[rad/s]}
+\end{equation*}
+</div>
+<p>Este modo é utilizado quando há necessidade de leituras mais rápidas,
+como é o caso do transiente medido no <a class="reference internal" href="#experimento-3">experimento 3</a>. No entanto, é menos
+preciso pois há variacões maiores devido às imperfeições do encoder.</p>
+<p>Para se obter o número de passos por volta do encoder utilizado, foi
+medido o número de passos enquanto se girou a roda por 100 voltas. O
+número de passos ao final foi dividido pelo número de voltas realizadas,
+neste caso obtendo-se o valor de 390 passos por volta.</p>
+<p>Por fim, os dados medidos são dispostos em colunas separadas por
+tabulação e enviados através da porta serial. Neste formato, fica fácil
+copiá-los e colá-los em uma planilha ou mesmo direto no MATLAB.</p>
+</div>
+<div class="section" id="procedimentos-na-pratica">
+<h2>Procedimentos na prática</h2>
+<p>Temos a função de transferência simplificada para um motor DC qualquer,
+da equação .</p>
+<div class="math">\begin{equation}
+G(s)=\frac{\Omega(s)}{E(s)}=\frac{K}{R J s+K^2}=\frac{\frac{K}{RJ}}{s+\frac{K^2}{RJ}}
+\label{eq_funcao_transferencia}
+\end{equation}
+</div>
+<p>Para obter as características de um motor específico, ou seja, para
+obter as constantes da equação do motor, devemos fazer alguns
+experimentos.</p>
+<div class="section" id="experimento-1">
+<h3>Experimento 1</h3>
+<p>O primeiro experimento determinará a resistência interna do motor. Em
+princípio, colocar um multímetro na função de ohmímetro nos terminais do
+motor seria suficiente, mas na realidade, esta medida pode fornecer
+dados incorretos (neste experimento a diferença em um dos motores foi de
+833%).</p>
+<p>Dados melhores podem ser obtidos da seguinte forma:</p>
+<ol class="arabic simple">
+<li>Ligar os terminais do motor em uma fonte de tensão ajustável,
+colocando um amperímetro em série com o motor para medir a corrente.</li>
+<li>Aumentar a tensão até que o motor comece a rodar.</li>
+<li>Segurar o motor de forma que ele fique parado. Cuidado para não se
+ferir nesta operação caso o motor seja muito forte.</li>
+<li>Verificar a corrente que passa pelo motor através do amperímetro. O
+valor deve ser anotado apenas quando ele se estabilizar.</li>
+<li>Executar os três passos anteriores para outras tensões
+intermediárias. A tensão não deve ultrapassar a especificação do
+motor. Também não é recomendado chegar muito próximo à máxima tensão
+no motor, pois assim a corrente que passará na bobina será muito
+elevada, e esta pode ser danificada devido ao calor excessivo
+causado pelo <a class="reference external" href="https://en.wikipedia.org/wiki/Joule_heating">efeito Joule</a>.</li>
+</ol>
+<p>Com os dados de corrente <span class="math">\(\times\)</span> tensão, é possível obter um
+gráfico próximo a uma reta (figura <a class="reference internal" href="#fig-exp1-graf-ptos">4</a>). De acordo
+com a equação \ref{eq_resistencia}, verifica-se que da inclinação
+do gráfico pode-se obter a resistência do motor.</p>
+<div class="figure" id="fig-exp1-graf-ptos" style="max-width:500px;margin-right:auto;margin-left:auto">
+<object data="../../../../../artigos/Motor/motor_exp1_ptos.svg" type="image/svg+xml"></object><div class="caption">Figura 4: 
+Gráfico do experimento 1.</div>
+</div>
+<p>Por exemplo, a partir de duas medidas,</p>
+<div class="math">
+\begin{equation*}
+R=\frac{\Delta e}{\Delta i}=\frac{e_2-e_1}{i_2-i_1}
+\end{equation*}
+</div>
+<p>Para o motor avaliado no experimento, a partir de uma única medida,
+obteríamos</p>
+<div class="math">
+\begin{equation*}
+R=\frac{6-0}{1.09-0}=5.505 [\Omega]
+\end{equation*}
+</div>
+<p>Utilizar mais pontos em geral nos dará maior precisão e para obter a
+inclinação da reta, pode-se utilizar uma ferramenta de regressão linear.
+O Microsoft Excel possui recursos deste tipo. Também há uma ferramenta
+no MATLAB chamada <em>Curve Fitting Tool</em> que pode ser usada para isto. O
+comando para abrí-la é <tt class="docutils literal">cftool</tt>. Outra forma mais rápida para
+regressão linear direto pela linha de comando do MATLAB é usando o
+comando <tt class="docutils literal">polyfit</tt>, neste caso para uma regressão linear, usaremos o
+parâmetro N=1:</p>
+<div class="highlight"><pre><span></span><span class="gp">&gt;&gt; </span><span class="n">V1</span><span class="p">=[</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">];</span>
+<span class="gp">&gt;&gt; </span><span class="n">I1</span><span class="p">=[</span><span class="mf">0.62</span> <span class="mf">0.88</span> <span class="mf">1.09</span><span class="p">];</span>
+<span class="gp">&gt;&gt; </span><span class="n">polyfit</span><span class="p">(</span><span class="n">I1</span><span class="p">,</span><span class="n">V1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="go">ans =</span>
+
+<span class="go">    4.2393    1.3400</span>
+</pre></div>
+<p>A saída significa que uma regressão linear, da forma <span class="math">\(Ax+B\)</span>, para
+os pontos utilizados, equivale a uma reta onde <span class="math">\(A=4.2393\)</span> e
+<span class="math">\(B=1.34\)</span>.</p>
+<p>Como a inclinação da reta é o valor de <span class="math">\(R\)</span>, temos que
+<span class="math">\(R=4.2393[\Omega]\)</span>. Note também que na reta obtida (figura
+<a class="reference internal" href="#fig-exp1-graf-retas">5</a>) há um deslocamento da reta, causada
+principalmente pelos atritos do sistema (estático e viscoso).</p>
+<div class="figure" id="fig-exp1-graf-retas" style="max-width:500px;margin-right:auto;margin-left:auto">
+<object data="../../../../../artigos/Motor/motor_exp1_retas.svg" type="image/svg+xml"></object><div class="caption">Figura 5: 
+Gráfico do experimento 1, incluindo as retas com o R obtido.</div>
+</div>
+</div>
+<div class="section" id="experimento-2">
+<h3>Experimento 2</h3>
+<p>O segundo experimento nos dará a constante <span class="math">\(K\)</span>. Este experimento
+consiste basicamente do mesmo procedimento que o primeiro, porém sem
+segurar a roda, deixando-a correr livremente. Ainda, em vez de medir a
+corrente no motor, será medida a velocidade da roda, em radianos por
+segundo. Assim, no regime estacionário, podemos nos utilizar da equação
+\ref{eq_K} e de um gráfico tensão <span class="math">\(\times\)</span> velocidade.</p>
+<p>Para isto foi utilizado o Arduino, lendo a velocidade a partir do
+encoder, no modo <tt class="docutils literal">STEP_TIME</tt>.</p>
+<p>A partir dos dados obtidos no experimento, é possível obter a constante
+<span class="math">\(K\)</span> através de regressão linear, da mesma forma que foi feito para
+o experimento anterior. Obtem-se então o gráfico da figura <a class="reference internal" href="#fig-exp2">6</a>
+através do comando</p>
+<div class="highlight"><pre><span></span><span class="n">K</span><span class="p">=</span><span class="n">polyfit</span><span class="p">(</span><span class="n">Vel2</span><span class="p">,</span><span class="n">V2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+<div class="figure" id="fig-exp2" style="max-width:500px;margin-right:auto;margin-left:auto">
+<object data="../../../../../artigos/Motor/motor_exp2.svg" type="image/svg+xml"></object><div class="caption">Figura 6: 
+Gráfico do experimento 2, com os pontos lidos no experimento e a reta obtida.</div>
+</div>
+<p>Com isto é obtido o valor <span class="math">\(K=0.5419\)</span> [V/(rad/s)], como o motor não
+está com carga, a tensão pode ser aumentada até o máximo da
+especificação do motor. Este valor máximo deve ser obtido também para
+uso no terceiro experimento.</p>
+<p>Uma outra forma, mais simples porém menos precisa, é simplesmente
+aplicar uma tensão no motor, esperar o regime estacionário (velocidade
+constante), medir a corrente no sistema, descontar a queda de tensão na
+resistência causada por esta corrente e aplicar a fórmula
+<span class="math">\(K=E_0/\omega\)</span> da equação \ref{eq_K}. No entanto, devido à
+importancia da constante <span class="math">\(K\)</span> e às não-idealidades do motor (como a
+tensão mínima antes do motor começar a rodar), é melhor utilizar o
+método anterior. Essas não-idealidades também podem ser visualizadas na
+figura <a class="reference internal" href="#fig-exp2">6</a> como um deslocamento da reta.</p>
+</div>
+<div class="section" id="experimento-3">
+<h3>Experimento 3</h3>
+<p>O terceiro experimento será usado para obter a constante de inércia
+<span class="math">\(J\)</span>.</p>
+<p>Conforme visto na seção de modelagem matemática, ao aplicar um degrau de
+tensão, o motor responderá em velocidade com uma curva exponencial
+invertida, da forma da equação \ref{eq_omega_tempo}.</p>
+<p>Com todas as demais constantes determinadas, obtendo-se a curva para
+esta função também é possível obter matematicamente a constante que
+falta, <span class="math">\(J\)</span>.</p>
+<p>Assim, este experimento será exatamente como a teoria sugere:</p>
+<ol class="arabic simple">
+<li>Aplicar um degrau de tensão nos terminais do motor, com o valor
+máximo especificado (o que nos dará a velocidade máxima sem carga).</li>
+<li>Medir a velocidade da roda no transiente, ou seja, enquanto ela
+acelera até chegar ao regime estacionário. Esta medição pode ser
+feita com o Arduino lendo o encoder no modo <tt class="docutils literal">TIME_STEP</tt>.</li>
+<li>Com as medições e o tempo de cada medição, é possível realizar uma
+regressão exponencial, ou tratar os dados para fazer outra regressão
+linear.</li>
+</ol>
+<p>O tratamento inicial dos dados é feito para se obter uma exponencial
+pura. Nossos dados estão na forma da equação \ref{eq_omega_tempo}.
+Para obtermos nossa
+exponencial pura, devemos ter o valor de <span class="math">\(\omega_0\)</span>, obtido com um
+degrau de mesmo tamanho no <a class="reference internal" href="#experimento-2">experimento 2</a> (ou no regime estacionário
+deste experimento, porém os dados do experimento 2 são mais precisos por
+usar o modo <tt class="docutils literal">STEP_TIME</tt>). Assim,</p>
+<div class="math">
+\begin{equation*}
+\omega(t)=\frac{E_0}{K}\left(1-e^{-\frac{K^2}{RJ}t}\right)
+\end{equation*}
+</div>
+<div class="math">
+\begin{equation*}
+f(t)= 1 - \frac{\omega(t)}{\frac{E_0}{K}} = e^{-\frac{K^2}{RJ}t}
+\end{equation*}
+</div>
+<p>A regressão exponencial também pode ser feita através da ferramenta <em>Curve
+Fitting Tool</em> do MATLAB (chamada usando o comando <tt class="docutils literal">cftool</tt>).
+Alternativamente, pode-se usar diretamente a função de regressão
+exponencial com o comando <tt class="docutils literal">fit</tt> com <tt class="docutils literal">'exp1'</tt> como terceiro
+parâmetro.</p>
+<p>Os comandos para obter diretamente os valores são:</p>
+<div class="highlight"><pre><span></span><span class="n">E0</span> <span class="p">=</span> <span class="n">V2</span><span class="p">(</span><span class="k">end</span><span class="p">);</span>
+<span class="n">f</span> <span class="p">=</span> <span class="o">-</span><span class="n">Vel3</span><span class="o">/</span><span class="p">(</span><span class="n">E0</span><span class="o">/</span><span class="n">K</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">K2RJ</span> <span class="p">=</span> <span class="n">fit</span><span class="p">(</span><span class="n">T3</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="s">'exp1'</span><span class="p">);</span>
+<span class="n">J</span> <span class="p">=</span> <span class="o">-</span><span class="n">K</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>^<span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">Rb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">K2RJ</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+<p>Assim obtemos o valor de <span class="math">\(J=0.0047\)</span> [N m²].
+Substituindo todos os valores na equação original (\ref{eq_omega_tempo}),
+traçamos o gráfico da figura <a class="reference internal" href="#fig-exp3">7</a>.</p>
+<div class="figure" id="fig-exp3" style="max-width:500px;margin-right:auto;margin-left:auto">
+<object data="../../../../../artigos/Motor/motor_exp3.svg" type="image/svg+xml"></object><div class="caption">Figura 7: 
+Gráfico do experimento 3, com os pontos lidos no experimento e a curva exponencial.</div>
+</div>
+<p>Para esta regressão, o Excel também pode ser utilizado, porém seus
+resultados são piores, uma vez que o Excel só permite utilizar dados
+positivos, enquanto uma boa regressão também terá como entrada valores
+negativos após a preparação dos dados. Caso o MATLAB não esteja
+disponível, pode-se melhorar o resultado do Excel tratando-se os dados
+mais uma vez e fazendo uma regressão linear em vez de uma regressão
+exponencial, da forma:</p>
+<div class="math">
+\begin{equation*}
+f_L(t) = \ln(f(t)) = -\frac{K^2}{RJ}t
+\end{equation*}
+</div>
+<p>e assim obter <span class="math">\(K^2/RJ\)</span> a partir da inclinação da reta, calculando,
+por fim, <span class="math">\(J\)</span>.</p>
+<p>Para finalizar, podemos substituir os valores obtidos para as constantes
+<span class="math">\(R\)</span>, <span class="math">\(K\)</span> e <span class="math">\(J\)</span> na função de transferência da equação
+\ref{eq_funcao_transferencia}.</p>
+<div class="math">
+\begin{equation*}
+G(s)=\frac{\Omega(s)}{E(s)}=\frac{\frac{K}{RJ}}{s+\frac{K^2}{RJ}}= \frac{\frac{0.5419}{4.2393 \cdot 0.0046}}{s+\frac{0.5419^2}{4.2393 \cdot 0.0046}} =\frac{27.20}{s+14.74}
+\end{equation*}
+</div>
+<div class="admonition-observacao admonition">
+<p class="first admonition-title">Observação:</p>
+<p class="last">Note que os números do numerador e do denomidador diferem exatamente
+do fator <span class="math">\(K\)</span> encontrado anteriormente. Isto pode ser visto mais
+claramente na equação \ref{eq_funcao_transferencia}}. Como mostrado
+na equação \ref{eq_K}}, <span class="math">\(K\)</span> corresponde exatamente à proporção
+entre o sinal de tensão aplicado no motor e sua velocidade no regime
+estacionário. É importante ter isto em mente ao projetar um
+controlador, pois, de forma geral, quando se mede a resposta ao degrau
+unitário, o erro será calculado esperando-se na saída um valor também
+de amplitude unitária, o que não acontece neste sistema. Para resolver
+isto, deve-se multiplicar o valor medido pelo sensor por <span class="math">\(K\)</span>, ou
+multiplicar o valor de referência por <span class="math">\(1/K\)</span>.</p>
+</div>
+<div class="line-block">
+<div class="line">Este documento está disponível online em sua última versão em:</div>
+<div class="line"><a class="reference external" href="http://ronan.dapaixao.com.br/artigos/2011/08/19/identificacao-de-motores/">http://ronan.dapaixao.com.br/artigos/2011/08/19/identificacao-de-motores/</a>.</div>
+</div>
+</div>
+</div>
+<div class="section" id="anexos">
+<h2>Anexos</h2>
+<p><a class="reference external" href="../../../../../artigos/Motor/Motor.pde">Programa do Arduino</a></p>
+</div>
+<script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

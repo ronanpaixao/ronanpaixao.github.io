@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Utilizando proxy corporativo com Python requests, Git, Mercurial, Conda e pip - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2016/08/15/utilizando-proxy-corporativo-com-python-requests-git-mercurial-conda-e-pip/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="proxy,python,requests,git,mercurial,cntlm" />
+        <meta name="description" content="Trabalhar em um ambiente corporativo nem sempre é simples. Especialmente se você realizar programação mesmo sem ser da área de TI. Na verdade, quanto maior a empresa, maiores as chances de haver regras draconianas a respeito de software desenvolvido localmente. Algumas empresas chegam até a proibi-los. Outras empresas não chegam ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Utilizando proxy corporativo com Python requests, Git, Mercurial, Conda e pip"/>
+        <meta property="og:url" content="../../../../../artigos/2016/08/15/utilizando-proxy-corporativo-com-python-requests-git-mercurial-conda-e-pip/"/>
+        <meta property="og:description" content="Trabalhar em um ambiente corporativo nem sempre é simples. Especialmente se você realizar programação mesmo sem ser da área de TI. Na verdade, quanto maior a empresa, maiores as chances de haver regras draconianas a respeito de software desenvolvido localmente. Algumas empresas chegam até a proibi-los. Outras empresas não chegam ..."/>
+        <meta property="article:published_time" content="2016-08-15" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="proxy" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="requests" />
+            <meta property="article:tag" content="git" />
+            <meta property="article:tag" content="mercurial" />
+            <meta property="article:tag" content="cntlm" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2016/08/15/utilizando-proxy-corporativo-com-python-requests-git-mercurial-conda-e-pip/"
+                       rel="bookmark"
+                       title="Permalink to Utilizando proxy corporativo com Python requests, Git, Mercurial, Conda e pip">
+                        Utilizando proxy corporativo com Python requests, Git, Mercurial, Conda e pip
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-08-15T06:00:00-03:00"> seg 15 agosto 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/proxy/">proxy</a>
+        /
+	<a href="../../../../../tag/python/">python</a>
+        /
+	<a href="../../../../../tag/requests/">requests</a>
+        /
+	<a href="../../../../../tag/git/">git</a>
+        /
+	<a href="../../../../../tag/mercurial/">mercurial</a>
+        /
+	<a href="../../../../../tag/cntlm/">cntlm</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Trabalhar em um ambiente corporativo nem sempre é simples. Especialmente se você realizar programação mesmo sem ser da área de TI. Na verdade, quanto maior a empresa, maiores as chances de haver regras draconianas a respeito de software desenvolvido localmente. Algumas empresas chegam até a proibi-los.</p>
+<p>Outras empresas não chegam a esse ponto, mas nem por isso facilitam a vida daqueles que desenvolvem <em>por natureza</em>, em geral pequenos aplicativos para facilitar no dia-a-dia. Após alguma ralação, consegui fazer alguns aplicativos básicos funcionarem. Em especial, costuma ser difícil obter acesso à rede para aplicativos de linha de comando. Mais particularmente, é comum haver em empresas grandes alguma forma de proxy com autenticação.</p>
+<p>Em determinados casos, pode ser que um usuário desavisado nem perceba, uma vez que esses proxies podem ser transparentes e operar com autenticação <em>Single Sign-On</em> (estilo SPNEGO + Kerberos). No entanto, nem todas as ferramentas suportam esse tipo de autenticação, e às vezes as que suportam precisam de plugins, configurações elaboradas ou até mesmo o armazenamento de senhas em claro (!!!). Das ferramentas mais comuns ao desenvolvedor, saltam à mente ferramentas vindas do Linux, as quais nem sempre suportam autenticação do tipo NTLM, mais comum no mundo corporativo do Windows. Em especial, vou focar na biblioteca <a href="http://www.python-requests.org">requests</a> do <a href="https://www.python.org/">Python</a>, nos DVCS <a href="https://git-scm.com/">Git</a> e <a href="https://www.mercurial-scm.org/">Mercurial</a> e nos gerenciadores de pacotes <a href="http://conda.pydata.org">Conda</a> e <a href="https://pip.pypa.io">pip</a>.</p>
+<p>Enfim, vamos ao que interessa.</p>
+<h2>Plano</h2>
+<div class="admonition note">
+<p class="admonition-title">Nota:</p>
+<p>Estou considerando que a empresa dentro da qual este procedimento será aplicado permite esse tipo de utilização de rede. Se você estiver em dúvida, consulte as regras da sua empresa ou o administrador da rede/suporte de TI.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota:</p>
+<p>Este procedimento não contorna ou evita o rastreamento que sua empresa pode empregar. Iremos usar o próprio proxy da empresa, logo caso a empresa bloqueie o acesso a determinados sites que você queira usar, você ainda será bloqueado. Em dúvida, teste o site no seu navegador: se houver alguma mensagem de bloqueio, então é o proxy da empresa que o bloqueará, não a limitação dos software que estamos tentando contornar.</p>
+</div>
+<p>Algumas ferramentas até suportam a autenticação NTLM, seja diretamente, seja através de plugins. No entanto, algumas não a suportam e vou focar nessa hipótese. Para contornar esse problema, irei utilizar um <em>proxy local</em> que suporta a autenticação. Ou seja, irei configurar a ferramenta para acessar o proxy local e este irá redirecionar a requisição para o proxy corporativo, realizando a autenticação NTLM para a ferramenta.</p>
+<p>De forma geral, precisamos fazer os seguintes passos:</p>
+<ol>
+<li>Obter o endereço do proxy corporativo.</li>
+<li>Configurar o proxy local.</li>
+<li>Redirecionar as ferramentas para o proxy local.</li>
+</ol>
+<h2>Obtendo o endereço do proxy corporativo</h2>
+<p>A obtenção deste endereço não deveria ser difícil. Se o navegador está configurado pelo administrador para acessá-lo, então usá-lo não é ilegal, imoral e nem engorda. No entanto, devido à <em>burrificação</em> dos sistemas operacionais e aplicativos, podemos nos deparar com alguns problemas, como a impossibilidade de acessar a configuração de proxy tanto do SO quanto do navegador.</p>
+<p>A primeira tentativa de encontrar o endereço pode ser procurando no Painel de Controle o item "Opções da Internet". Procuro logo lá pois os administradores quase sempre configuram o Internet Explorer com o proxy corporativo. Para facilitar, desde o Windows Vista é possível a busca do próprio Windows indo no Menu Iniciar ou apertando a tecla <em>Win</em> (a que tem o símbolo do Windows <i class="fa fa-windows"></i>) e digitando "Opções da Internet". Se nada estiver bloqueado, iremos ver essa janela:</p>
+<p><img alt="" src="../../../../../artigos/2016/08/15/utilizando-proxy-corporativo-com-python-requests-git-mercurial-conda-e-pip/opcoes-da-internet.png" style="max-width:100%;width:488px;margin-left:auto;margin-right:auto;height:auto"><div class="caption">Opções da Internet</div></p>
+<p>Vá na aba <code>Conexões</code> e clique no botão <code>Configurações da LAN</code>. Iremos ver esta caixa de diálogo:</p>
+<p><img alt="" src="../../../../../artigos/2016/08/15/utilizando-proxy-corporativo-com-python-requests-git-mercurial-conda-e-pip/configuracoes-da-lan.png" style="max-width:100%;width:443px;margin-left:auto;margin-right:auto;height:auto"><div class="caption">Configurações da LAN</div></p>
+<p>Se a caixa "Usar um servidor proxy para a rede local" estiver marcada, o endereço e porta do proxy estarão nas caixas de texto <code>Endereço</code> e <code>Porta</code>.</p>
+<p>Porém, é comum no mundo corporativo utilizar um <em>script de configuração automática</em>. Se este for o caso, copie o endereço do script logo abaixo da caixa de seleção e vá para a sub-seção abaixo.</p>
+<h3>Configurações da LAN bloqueadas</h3>
+<p>Por outro lado, no mundo corporativo é possível que o próprio botão <code>Configurações da LAN</code> esteja desativado. Esta é em parte uma medida de segurança contra <em>lusers</em> que atrapalham a vida da TI querendo fazer coisas fora do comum na rede, e parte porque se o usuário não tem como alterar, não teria motivo também para acessar a caixa de diálogo. No entanto, para nós que queremos usar nossas ferramentas em paz, é um empecilho, pois não conseguimos ver as configurações.</p>
+<p>Se este for o seu caso, há algumas formas de se obter o endereço. Não sei se vão servir para todos os casos, pois alguns administradores de rede bloqueiam as ferramentas do SO até que ele se torne inútil, mas vale a tentativa. Então, vamos tentar obter as configurações através do registro. Abra um <code>Prompt de Comando</code> executando o <code>cmd.exe</code> (também é possível encontrá-lo com a busca do Windows). Execute a seguinte linha:</p>
+<div class="highlight"><pre><span></span>reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+</pre></div>
+
+
+<p>Você obterá uma resposta semelhante a (algum conteúdo editado por segurança):</p>
+<div class="highlight"><pre><span></span>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+    DisableCachingOfSSLPages    REG_DWORD    0xX
+    IE5_UA_Backup_Flag    REG_SZ    5.0
+    PrivacyAdvanced    REG_DWORD    0x1
+    SecureProtocols    REG_DWORD    0xXX
+    CertificateRevocation    REG_DWORD    0x1
+    EnableNegotiate    REG_DWORD    0x1
+    MigrateProxy    REG_DWORD    0x1
+    ProxyEnable    REG_DWORD    0x1
+    User Agent    REG_SZ    UserAgent
+    ZonesSecurityUpgrade    REG_BINARY    DEADBEEF
+    EmailName    REG_SZ    User@
+    AutoConfigProxy    REG_SZ    wininet.dll
+    MimeExclusionListForCache    REG_SZ    multipart/mixed
+    WarnOnPost    REG_BINARY    01000000
+    UseSchannelDirectly    REG_BINARY    01000000
+    EnableHttp1_1    REG_DWORD    0x1
+    UrlEncoding    REG_DWORD    0x0
+    WarnonZoneCrossing    REG_DWORD    0x0
+    EnableAutodial    REG_DWORD    0x0
+    NoNetAutodial    REG_DWORD    0x0
+    ProxyServer    REG_SZ    proxy.dominio.biz:8080
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\...
+</pre></div>
+
+
+<p>Nosso interesse é na linha <code>ProxyEnable</code>. Se ela estiver com 0x1, significa que realmente há um proxy ativado. O endereço configurado está na linha <code>ProxyServer</code>, neste caso o endereço é <code>proxy.dominio.biz</code> e a porta é a <code>8080</code>.</p>
+<p>Se um script de autoconfiguração estiver sendo usado, teremos algo parecido com:</p>
+<div class="highlight"><pre><span></span>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+    IE5_UA_Backup_Flag    REG_SZ    5.0
+    User Agent    REG_SZ    UserAgent
+    EmailName    REG_SZ    User@
+    PrivDiscUiShown    REG_DWORD    0x1
+    EnableHttp1_1    REG_DWORD    0x1
+    WarnOnIntranet    REG_DWORD    0x1
+    MimeExclusionListForCache    REG_SZ    multipart/mixed
+    AutoConfigProxy    REG_SZ    wininet.dll
+    UseSchannelDirectly    REG_BINARY    010101
+    EnablePunycode    REG_DWORD    0x1
+    SecureProtocols    REG_DWORD    0xXX
+    AutoConfigURL    REG_SZ    http://proxy.dominio.biz/auto-proxy.pac
+    ProxyEnable    REG_DWORD    0x0
+    EnableAutodial    REG_DWORD    0x0
+    NoNetAutodial    REG_DWORD    0x0
+    WarnOnPost    REG_BINARY    010101
+    UrlEncoding    REG_DWORD    0x0
+    PrivacyAdvanced    REG_DWORD    0x0
+    ZonesSecurityUpgrade    REG_BINARY    DEADBEEF
+    DisableCachingOfSSLPages    REG_DWORD    0xX
+    WarnonZoneCrossing    REG_DWORD    0xX
+    CertificateRevocation    REG_DWORD    0x1
+    EnableNegotiate    REG_DWORD    0x1
+    MigrateProxy    REG_DWORD    0x1
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\5.
+0
+</pre></div>
+
+
+<p>Observe que aqui a linha <code>ProxyEnable</code> está desativada (0x0). No entanto, existe a linha <code>AutoConfigURL</code>, na qual estará o endereço para o script de autoconfiguração, neste caso, <code>http://proxy.dominio.biz/auto-proxy.pac</code>.</p>
+<h3>Script de configuração automática</h3>
+<p>Se nos passos acima você descobriu que utiliza um script de configuração automática, você terá que baixá-lo. O jeito mais fácil é simplesmente utilizando seu navegador <i class="fa fa-smile-o"></i>, mas se você estiver com pressa, pode baixar o script pela própria linha de comando. Para este caso, iremos usar o PowerShell (novamente, se disponível para o usuário, e substitua o endereço da linha de comando pelo que você encontrar):</p>
+<div class="highlight"><pre><span></span><span class="x">PS C:\Users\usuario&gt; </span><span class="p">$</span><span class="nv">url</span><span class="x"> = "http://proxy.dominio.biz/auto-proxy.pac"</span>
+<span class="x">PS C:\Users\usuario&gt; </span><span class="p">$</span><span class="nv">client</span><span class="x"> = New-Object System.Net.WebClient</span>
+<span class="x">PS C:\Users\usuario&gt; </span><span class="p">$</span><span class="nv">client</span><span class="p">.</span><span class="nv">DownloadString</span><span class="p">($</span><span class="nv">url</span><span class="p">)</span><span class="x"></span>
+</pre></div>
+
+
+<p>O script de configuração automática é um arquivo em JavaScript. Por isso, ele pode ter diversos formatos, como este:</p>
+<div class="highlight"><pre><span></span><span class="nt">function</span> <span class="nt">FindProxyForURL</span><span class="o">(</span><span class="nt">url</span><span class="o">,</span> <span class="nt">host</span><span class="o">)</span>   
+<span class="p">{</span>
+<span class="n">if</span> <span class="p">(</span><span class="n">shExpMatch</span><span class="p">(</span><span class="nb">url</span><span class="o">,</span> <span class="s2">"http://dummy/"</span><span class="p">))</span>
+    <span class="n">return</span> <span class="s2">"DIRECT"</span><span class="p">;</span>
+ <span class="n">else</span>
+         <span class="n">if</span> <span class="p">((</span>
+         <span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"*.secure.site"</span><span class="p">)</span> <span class="o">||</span>
+         <span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"*.othersecure.site"</span><span class="p">)</span>
+         <span class="p">)</span>
+                <span class="n">return</span> <span class="s2">"PROXY secureproxy.dominio.biz:8079;"</span><span class="p">;</span>
+ <span class="n">else</span>
+     <span class="n">if</span> <span class="p">((</span>
+     <span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"*.iwannapeek.your.activity"</span><span class="p">)</span> <span class="o">||</span>
+     <span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"*.intercept.employee.access"</span><span class="p">)</span>
+     <span class="p">)</span>
+                <span class="n">return</span> <span class="s2">"PROXY interceptproxy.dominio.biz:8080;"</span><span class="p">;</span>
+ <span class="n">else</span>
+    <span class="n">if</span> <span class="p">((</span>
+     <span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"*.intranet.dominio.biz"</span><span class="p">)</span> <span class="o">||</span>
+     <span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"*.portal.dominio.biz"</span><span class="p">)</span> <span class="o">||</span>
+     <span class="n">isInNet</span><span class="p">(</span><span class="n">host</span><span class="o">,</span> <span class="s2">"10.1.0.0"</span><span class="o">,</span> <span class="s2">"255.255.0.0"</span><span class="p">)</span> <span class="o">||</span>
+     <span class="n">isPlainHostName</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+        <span class="p">)</span>
+     <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isInNet</span><span class="p">(</span><span class="n">host</span><span class="o">,</span> <span class="s2">"10.50.4.0"</span><span class="o">,</span> <span class="s2">"255.255.252.0"</span><span class="p">)</span>
+     <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">shExpMatch</span><span class="p">(</span><span class="n">host</span><span class="o">,</span><span class="s2">"bypass.dominio.biz"</span><span class="p">)</span>
+    <span class="p">)</span>
+ <span class="n">return</span> <span class="s2">"DIRECT"</span><span class="p">;</span>
+ <span class="n">else</span>
+                <span class="n">return</span> <span class="s2">"PROXY defaultproxy.dominio.biz:8080;"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Às vezes parece complicado, mas é só procurar as linhas com <code>return "PROXY &lt;endereço do proxy&gt;:&lt;porta&gt;;"</code>. Se houver várias, cabe interpretar qual é o que você irá usar. No nosso caso, irei usar <code>defaultproxy.dominio.biz:8080</code></p>
+<h4>Opcional</h4>
+<p>Se você quiser potencialmente ganhar um pouco de desempenho, você pode converter o endereço do proxy em um IP. A forma mais simples é usar um ping no <code>cmd.exe</code>:</p>
+<div class="highlight"><pre><span></span>C:\Users\usuario&gt;ping defaultproxy.dominio.biz
+
+Disparando defaultproxy.dominio.biz [10.1.66.254] com 32 bytes de dados:
+
+Resposta de 10.1.66.254: bytes=32 tempo=10ms TTL=251
+Resposta de 10.1.66.254: bytes=32 tempo=10ms TTL=251
+Resposta de 10.1.66.254: bytes=32 tempo=10ms TTL=251
+Resposta de 10.1.66.254: bytes=32 tempo=10ms TTL=251
+
+Estatísticas do Ping para 10.1.66.254:
+    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de
+             perda),
+Aproximar um número redondo de vezes em milissegundos:
+    Mínimo = 10ms, Máximo = 10ms, Média = 10ms
+</pre></div>
+
+
+<p>Ou seja, o IP do nosso proxy será neste caso <code>10.1.66.254</code>.</p>
+<h2>Configurar o proxy local</h2>
+<p>Um proxy local bem leve, que aceita autenticação NTLM (na verdade, foi feito para isso) e, mais importante, <em>é portátil</em> é o <a href="http://cntlm.sourceforge.net/">CNTLM</a>. Apesar do projeto ser um pouco antigo, ele é plenamente funcional e cumpre o que promete, apesar de só suportar IPv4. Pelo menos por enquanto, serve pra 99.999% dos usuários. <a href="https://sourceforge.net/projects/cntlm/files/cntlm/">Baixe a última versão do seu site</a>. Já que estamos falando de um ambiente corporativo Windows, convém baixar a versão em zip, pois não será necessário ter privilégios de administrador da máquina para usá-lo. Extraia para uma pasta de fácil acesso.</p>
+<p>Dentro dessa pasta encontraremos um arquivo chamado <code>cntlm.ini</code>. Usaremos ele para guardar nossas configurações. Iremos alterar as linhas com configurações padrão:</p>
+<div class="highlight"><pre><span></span>Username    testuser
+Domain      corp-uk
+Password    password
+Proxy       10.0.0.41:8080
+Proxy       10.0.0.42:8080
+</pre></div>
+
+
+<p>de acordo com suas credenciais. No nosso exemplo, iremos alterar o usuário, domínio e a primeira linha do proxy e apagaremos a senha (não queremos guardar nenhuma senha em claro) e a segunda linha do proxy:</p>
+<div class="highlight"><pre><span></span>Username    usuario
+Domain      dominio.biz
+Proxy       10.1.66.254:8080
+</pre></div>
+
+
+<p>Observe que já usamos o endereço IP aqui, mas poderíamos usar o nome conforme obtivemos (<code>defaultproxy.dominio.biz</code>).</p>
+<p>Agora iremos gerar os <em>hashes</em> das senhas, o que nos permitirá armazená-la no arquivo de configuração com um risco menor dela ser usada indevidamente. Para gerar os hashes apropriados, iremos utilizar o próprio CNTLM. Podemos até incluir a linha de comando num arquivo <code>.bat</code> para facilitar o uso no futuro, como as frequentes trocas de senhas corporativas:</p>
+<div class="highlight"><pre><span></span>@echo off
+cntlm -H -u usuario@dominio.biz
+pause
+</pre></div>
+
+
+<p>O resultado foi:</p>
+<div class="highlight"><pre><span></span>      1 [main] cntlm 17688 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+cygwin warning:
+  MS-DOS style path detected: C:\Program Files (x86)\Cntlm\cntlm.ini
+  Preferred POSIX equivalent is: /cygdrive/c/Program Files (x86)/Cntlm/cntlm.ini
+  CYGWIN environment variable option "nodosfilewarning" turns off this warning.
+  Consult the user's guide for more details about POSIX paths:
+    http://cygwin.com/cygwin-ug-net/using.html#using-pathnames
+Password:
+PassLM          9604F467040F771E552C4BCA4AEBFB11
+PassNT          37A4B5A0ED2C674E9417730124B108B0
+PassNTLMv2      369E08BAF459F957AB27F2A7FEEDFD22    # Only for user 'usuario', domain 'dominio.biz'
+Pressione qualquer tecla para continuar. . .
+</pre></div>
+
+
+<p>Ignore o aviso 1, caso ele apareça. O que nos interessa é copiar as linhas <code>PassLM</code>, <code>PassNT</code> e <code>PassNTLMv2</code> para o nosso arquivo. Iremos mantê-las <em>descomentadas</em> (sem o # do início), ao contrário da configuração de exemplo.</p>
+<p>Atentente também para a linha</p>
+<div class="highlight"><pre><span></span>Listen      3128
+</pre></div>
+
+
+<p>ela indica a porta de conexão do proxy local. Iremos manter na porta padrão, <code>3128</code>.</p>
+<p>Para executar o CNTLM em si, o executamos com a seguinte linha de comando (que também pode ser colocada em um <code>.bat</code> para execução mais fácil a partir do Explorador de Arquivos):</p>
+<div class="highlight"><pre><span></span>cntlm -v -f -c ./cntlm.ini
+</pre></div>
+
+
+<p>Isso abrirá uma janela e o CNTLM estará rodando.</p>
+<p>Para testar se o CNTLM está funcionando, use a seguinte linha no Prompt de Comando:</p>
+<div class="highlight"><pre><span></span>cntlm -c ./cntlm.ini –M http://www.google.com
+</pre></div>
+
+
+<h2>Redirecionar as ferramentas para o proxy local</h2>
+<p>Finalmente, iremos configurar as ferramentas em si. Podíamos usar plugins e outros artifícios exclusivos de cada ferramenta, como o pacote <a href="https://github.com/requests/requests-ntlm">requests-ntlm</a>. Observe, no entanto, que se as ferramentas de linha de comando não funcionam diretamente com o proxy, como iremos baixar o pacote com o <code>pip</code> se ele próprio não conseguirá acessar a rede? <i class="fa fa-exclamation-circle"></i></p>
+<p>Mais uma vez, a solução é o CNTLM. Usando ele, não precisamos fazer a autenticação, pois ele próprio o fará. Precisamos então apenas configurar um proxy comum.</p>
+<div class="admonition attention">
+<p class="admonition-title">Importante!</p>
+<p>É comum ao usarmos servidores locais nos referirmos à máquina local com o nome <code>localhost</code>. No entanto, o CNTLM não suporta IPv6, o que junto com um bug do Windows faz com que não seja conveniente usar o nome. O "bug" diz respeito ao Windows, que vem com IPv6 ativado por padrão mesmo para a interface de <em>loopback</em>. Isso o faz retornar primeiramente o endereço IPv6 da máquina (<code>::1</code>). Ou seja, o programa tentará acessar o proxy no endereço <code>http://::1:8080</code>. Como o CNTLM não está escutando neste endereço, ele não responderá. Neste momento, a conexão fica esperando um bocado de tempo, até atingir seu <em>timeout</em>. Só então é tentado o próximo endereço, agora sim IPv4: <code>127.0.0.1</code>. Neste momento a conexão será estabelecida e o processo prosseguirá. Ou seja, utilitários que usam várias conexões podem somar esses timeouts até termos uma espera insuportável. Para contornar o problema, já indicaremos às ferramentas que iremos conectar ao IP <code>127.0.0.1</code>, evitando passar pelo timeout das tentativas do IPv6.</p>
+</div>
+<h3>Geral</h3>
+<p>De forma geral, muitos programas de linha de comando verificam a variável de ambiente <code>http_proxy</code> antes de uma conexão. Caso ela esteja definida, eles a usam para determinar o proxy. Eu prefiro manter um controle mais fino sobre quais programas usam qual proxy, em especial porque posso usar por exemplo o <a href="http://www.python-requests.org">requests</a> para acessar um endereço corporativo (para o qual eu preciso <em>não</em> passar pelo proxy). Mas caso seu uso da web seja exclusivamente pelo proxy, você pode querer definir um proxy global. Para isso, antes de iniciar o programa pelo prompt de comando, você pode executar:</p>
+<div class="highlight"><pre><span></span>set http_proxy="http://127.0.0.1:3128"
+</pre></div>
+
+
+<p>Este comando só vale para o referido prompt. Ao fechá-lo ou caso abra outra linha de comando, você precisará executar a linha acima novamente. Caso queira definir a variável sempre, você pode fazê-lo no Painel de Controle -&gt; Sistema -&gt; Configurações avançadas do sistema -&gt; Aba "Avançado" -&gt; Variáveis de Ambiente. Na janela que abrir você pode criar variáveis do usuário ou de sistema. Na dúvida, crie para o usuário. Clique no botão "Novo" e digite <code>http_proxy</code> na caixa "Nome da variável" e <code>http://127.0.0.1:3128</code> na caixa "Valor da variável".</p>
+<h3>Python requests</h3>
+<p>Para o pacote requests do Python, precisaremos utilizar a keyword <code>proxies</code> a cada chamada. Por exemplo:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'http'</span><span class="p">:</span> <span class="s1">'http://127.0.0.1:3128'</span><span class="p">,</span>
+  <span class="s1">'https'</span><span class="p">:</span> <span class="s1">'http://127.0.0.1:3128'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'http://example.org'</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Git</h3>
+<p>Para o Git, inserimos as seguintes linhas no arquivo <code>.gitconfig</code> na raiz do usuário. No exemplo seria em <code>C:\Users\usuario\.gitconfig</code>. Pode ser que jaá exista as seções <code>[user]</code> e <code>[core]</code>. Neste caso, a linha <code>gitProxy</code> deve apenas ser adicionada dentro da seção. Observe que já fizemos um redirecionamento do protocolo <code>git://</code> para <code>https://</code>, supondo que proxies corporativos costumam bloquear qualquer coisa que fuja do convencional, incluindo as portas do git.</p>
+<div class="highlight"><pre><span></span><span class="k">[core]</span>
+    <span class="na">autocrlf</span> <span class="o">=</span> <span class="s">true</span>
+<span class="s">    excludesfile = C:\\Users\\u5fs\\Documents\\gitignore_global.txt</span>
+<span class="s">    gitProxy=http.proxy</span>
+<span class="k">[http]</span>
+    <span class="na">proxy</span> <span class="o">=</span> <span class="s">http://127.0.0.1:3128</span>
+<span class="k">[https]</span>
+    <span class="na">proxy</span> <span class="o">=</span> <span class="s">http://127.0.0.1:3128</span>
+<span class="k">[url "https://github.com/"]</span>
+    <span class="na">insteadOf</span> <span class="o">=</span> <span class="s">git://github.com/</span>
+<span class="k">[url "https://bitbucket.com/"]</span>
+    <span class="na">insteadOf</span> <span class="o">=</span> <span class="s">git://bitbucket.com/</span>
+</pre></div>
+
+
+<h3>Mercurial</h3>
+<p>Para o Mercurial, adicionamos no arquivo <code>C:\Users\usuario\.hgrc</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">[http_proxy]</span>
+<span class="na">host</span> <span class="o">=</span> <span class="s">127.0.0.1:3128</span>
+</pre></div>
+
+
+<h3>Conda</h3>
+<p>Para o <a href="http://conda.pydata.org">Conda</a>, utilitário de instalação de pacotes do Anaconda (distribuição Python), também podemos configurar facilmente através do arquivo <code>C:\Users\usuario\.condarc</code>. Na seção <code>proxy_servers</code>, incluimos as linhas:</p>
+<div class="highlight"><pre><span></span><span class="n">proxy_servers</span><span class="o">:</span>
+    <span class="n">http</span><span class="o">:</span> <span class="n">http</span><span class="o">://</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3128</span>
+    <span class="n">https</span><span class="o">:</span> <span class="n">http</span><span class="o">://</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3128</span>
+</pre></div>
+
+
+<h3>pip</h3>
+<p>Para o <a href="https://pip.pypa.io">pip</a> funcionar através do proxy, adicione no arquivo <code>C:\Users\usuario\pip\pip.ini</code> as linhas:</p>
+<div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">proxy</span> <span class="o">=</span> <span class="s">127.0.0.1:3128</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

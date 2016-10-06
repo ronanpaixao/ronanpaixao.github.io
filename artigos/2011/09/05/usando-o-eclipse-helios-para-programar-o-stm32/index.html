@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Usando o Eclipse (Helios) para programar o STM32 - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2011/09/05/usando-o-eclipse-helios-para-programar-o-stm32/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="microcontrolador,MCU,STM32,GCC,programação,Eclipse" />
+        <meta name="description" content="Configurando um projeto no Eclipse 3.6 (Helios) Atenção! Esta seção está aqui apenas para referência, uma vez que há um tutorial para o Eclipse 3.7 (Indigo). Caso você já utilize o Eclipse 3.7, vá para o tutorial do Indigo. Nesse artigo também há diversas outras instruções de ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Usando o Eclipse (Helios) para programar o STM32"/>
+        <meta property="og:url" content="../../../../../artigos/2011/09/05/usando-o-eclipse-helios-para-programar-o-stm32/"/>
+        <meta property="og:description" content="Configurando um projeto no Eclipse 3.6 (Helios) Atenção! Esta seção está aqui apenas para referência, uma vez que há um tutorial para o Eclipse 3.7 (Indigo). Caso você já utilize o Eclipse 3.7, vá para o tutorial do Indigo. Nesse artigo também há diversas outras instruções de ..."/>
+        <meta property="article:published_time" content="2011-09-05" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="microcontrolador" />
+            <meta property="article:tag" content="MCU" />
+            <meta property="article:tag" content="STM32" />
+            <meta property="article:tag" content="GCC" />
+            <meta property="article:tag" content="programação" />
+            <meta property="article:tag" content="Eclipse" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2011/09/05/usando-o-eclipse-helios-para-programar-o-stm32/"
+                       rel="bookmark"
+                       title="Permalink to Usando o Eclipse (Helios) para programar o STM32">
+                        Usando o Eclipse (Helios) para programar o STM32
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2011-09-05T20:59:00-03:00"> seg 05 setembro 2011</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/microcontrolador/">microcontrolador</a>
+        /
+	<a href="../../../../../tag/mcu/">MCU</a>
+        /
+	<a href="../../../../../tag/stm32/">STM32</a>
+        /
+	<a href="../../../../../tag/gcc/">GCC</a>
+        /
+	<a href="../../../../../tag/programacao/">programação</a>
+        /
+	<a href="../../../../../tag/eclipse/">Eclipse</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h3>Configurando um projeto no Eclipse 3.6 (Helios)</h3>
+<div class="admonition note">
+<p class="admonition-title"><i class="fa fa-warning"></i> Atenção!</p>
+<p>Esta seção está aqui apenas para referência, uma vez que há um tutorial para o Eclipse 3.7 (Indigo).
+Caso você já utilize o Eclipse 3.7, vá para o <a href="../../../../../artigos/2011/09/11/usando-o-eclipse-indigo-para-programar-o-stm32/">tutorial do Indigo</a>.
+Nesse artigo também há diversas outras instruções de como usar o STM32 no Eclipse.</p>
+</div>
+<p>Abra o Eclipse e vá no menu <strong>Help-&gt;Install New Software...</strong>
+Clique no botão <strong>"Add..."</strong> e adicione o seguinte repositório:</p>
+<div class="highlight"><pre><span></span><span class="n">Name</span><span class="o">:</span> <span class="n">GNU</span> <span class="n">ARM</span> <span class="n">Eclipse</span> <span class="o">-</span> <span class="n">Location</span><span class="o">:</span> <span class="n">http</span><span class="o">://</span><span class="n">gnuarmeclipse</span><span class="o">.</span><span class="na">sourceforge</span><span class="o">.</span><span class="na">net</span><span class="o">/</span><span class="n">updates</span>
+</pre></div>
+
+
+<p>No campo <strong>"Work with"</strong>, selecione <strong>"--All Available Sites--"</strong>.
+Selecione o pacote:</p>
+<ul>
+<li>CDT GNU Cross Development Tools<ul>
+<li>GNU ARM C/C++ Development Support</li>
+</ul>
+</li>
+</ul>
+<p>e clique em <strong>"Next"</strong> duas vezes.
+Selecione <strong>"I accept the terms of the license agreements"</strong> e clique em <strong>"Finish"</strong>.
+O Eclipse irá baixar os pacotes.
+Será mostrado um aviso de segurança, pois o plugin não é assinado digitalmente.
+Aceite clicando em <strong>OK</strong>.
+Ao final da instalação, reinicie o Eclipse clicando em <strong>"Restart Now"</strong> na janela que irá aparecer.</p>
+<p><img alt="" src="../../../../../artigos/Microcontroladores/eclipse/eclipse_02b.png" style="max-width:100%;width:714px;margin-left:auto;margin-right:auto;height:auto"><div class="caption"></div></p>
+<p>Crie um novo projeto no menu <strong>File-&gt;New-&gt;C Project</strong>.
+Se isto não funcionar, vá em <strong>File-&gt;New-&gt;Project</strong>.
+Na janela que aparecer, selecione <strong>C/C++-&gt;C Project</strong>.</p>
+<p>Coloque um nome no projeto em <strong>"Project name"</strong>.
+Em <strong>"Project type"</strong>, selecione <strong>ARM Cross Target Application-&gt;Empty Project"</strong>.
+Em <strong>"Toolchain"</strong>, escolha o toolchain instalado, neste caso, <strong>ARM Windows GCC (Sourcery G++ Lite)</strong>
+Clique em <strong>"Finish"</strong>.</p>
+<p>Para fins de organização, <strong>crie pastas</strong> para separar os tipos de arquivos.
+Neste caso, criei <code>inc</code>, <code>src</code> e <code>lib</code>, sendo que o <code>src</code> eu criei como source folder.</p>
+<p>No menu <strong>Project-&gt;Properties</strong> vá em <strong>C/C++ Build-&gt;Settings</strong>.
+Quando possível, vá em <strong>"Configuration"</strong> e troque para <strong>"[ All configurations ]"</strong>, de forma que as configurações sejam válidas tanto para Debug quanto para Release.
+Se desejado, é possível apagar a versão Release.</p>
+<p>Na aba <strong>"Tool Settings"</strong> há vários itens.
+Como o nome é diferente para cada toolchain, cada utilitário será referenciado neste tutorial apenas com seu nome básico.</p>
+<p>Assim, ARM Sourcery Windows GCC C Linker será referenciado aqui apenas como GCC C Linker.
+Para os compiladores, as opções podem ser as mesmas tanto para o compilador C quanto para o C++ (no caso de um projeto C++).</p>
+<p>Se desejado, vá em todos os <strong>compilers-&gt;Optimization</strong> e ajuste as opções de otimização, exemplo <strong>Optimization level=Optimize size (-Os)</strong>.
+Ative <strong>-ffunction-sections</strong> e <strong>-fdata-sections</strong> e vá em <strong>GCC C++ Linker-&gt;General</strong> e ative a caixa <strong>"Remove unused sections (-Xlinker --gc-sections)"</strong>.</p>
+<p>Ainda nos compilers, vá no subitem <strong>"Directories"</strong> e adicione as seguintes pastas:</p>
+<div class="highlight"><pre><span></span>${workspace_loc:/${ProjName}/inc}
+../../STM32F10x_StdPeriph_Lib/Libraries/STM32F10x_StdPeriph_Driver/inc/
+../../STM32F10x_StdPeriph_Lib/Libraries/CMSIS/CM3/CoreSupport
+../../STM32F10x_StdPeriph_Lib/Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x
+</pre></div>
+
+
+<p>No subitem <strong>"Preprocessor"</strong> dos compiladores, no campo <strong>"Defined symbols (-D)"</strong>, adicione:</p>
+<div class="highlight"><pre><span></span>STM32F10X_MD
+</pre></div>
+
+
+<p>para Medium Devices, ou o referente à densidade do chip usado (por exemplo <code>STM32F10X_HD</code> para High-density devices), de acordo com os <code>#define</code> do arquivo</p>
+<div class="highlight"><pre><span></span>workspace\STM32F10x_StdPeriph_Lib\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
+</pre></div>
+
+
+<p>Copie o arquivo de startup (por exemplo <strong><code>startup_stm32f10x_md.s</code></strong>) da pasta</p>
+<div class="highlight"><pre><span></span>STM32F10x_StdPeriph_Lib\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\TrueSTUDIO
+</pre></div>
+
+
+<p>para a pasta <code>lib</code>.
+Renomeie este arquivo para ter uma extensão <code>.S</code> (maiúsculo) ou <code>.asm</code>.</p>
+<p><em>Opcional:</em> em <strong>GCC C Compiler-&gt;Miscellaneous</strong>, troque a opção <strong>"Language Standard"</strong> para <strong>"ISO C99 with GNU Extensions (-std=gnu99)"</strong> para obter acesso aos recursos do último padrão da linguagem C.
+Da mesma forma, em <strong>GCC C++ Compiler-&gt;Miscellaneous</strong>, troque para <strong>"ISO 2009 C++ with GNU Extensions (-std=gnu++0x)"</strong>.</p>
+<p>Vá no item <strong>GCC C++ Linker-&gt;General</strong> e coloque como <strong>"Script file(-T)"</strong>:</p>
+<div class="highlight"><pre><span></span>..\..\STM32F10x_StdPeriph_Lib\Project\STM32F10x_StdPeriph_Template\TrueSTUDIO\STM3210B-EVAL\stm32_flash.ld
+</pre></div>
+
+
+<p>Este arquivo é um linker script para o STM32F103RB.
+Para utilizar outro chip, pode-se procurar em outros exemplos de projetos ou copiar o arquivo para a pasta do projeto, alterando as linhas de interesse e o caminho do script do linker nas preferências do projeto.
+Uma rápida comparação entre os projetos para placas STM3210B-EVAL e STM3210E-EVAL mostra que as linhas mais importantes são a 36, 45 e 46, referentes aos tamanhos de FLASH e RAM.</p>
+<p>Caso tenha bibliotecas pré-compiladas (opcional):</p>
+<ul>
+<li>copie <code>libstdPeriphLibs.a</code> para <code>workspace\STM32F10x_StdPeriph_Lib</code></li>
+<li>No subitem <strong>Libraries</strong>, adicione <code>../../STM32F10x_StdPeriph_Lib</code> à lista <strong>"Library search path (-L)"</strong> e <code>stdPeriphLibs</code> à lista de <strong>"Libraries (-l)"</strong></li>
+</ul>
+<p><em>Opcional:</em> Para mostrar os tamanhos de cada arquivo objeto, vá em <strong>GNU Print Size-&gt;General</strong> e adicione em <strong>"Other flags"</strong> o texto (sem aspas) <code>*/*.o</code></p>
+<p>Copie os arquivos <code>.h</code> e <code>.c</code> da pasta <code>STM32F10x_StdPeriph_Lib\Project\STM32F10x_StdPeriph_Template</code> para a pasta do projeto.
+Separe respectivamente nos diretórios <code>inc</code> e <code>src</code>, exceto o arquivo <code>system_stm32f10x.c</code>, que vai para o <code>lib</code>.</p>
+<p>Caso deseje que o microcontrolador opere a uma velocidade diferente de 72MHz, abra o arquivo <code>system_stm32f10x.c</code>, comente a linha</p>
+<div class="highlight"><pre><span></span>#define SYSCLK_FREQ_72MHz  72000000
+</pre></div>
+
+
+<p>e descomente a linha da velocidade desejada.</p>
+<p>Em algumas placas pode haver um bug que pode fazer com que o microcontrolador fique com a velocidade diferente do previsto, caso o cristal não se estabilize a tempo.
+Para resolvê-lo, dentro da função <code>SetSysClockTo72(void)</code> (ou equivalente para outras velocidades) mude as referências <code>HSE_STARTUP_TIMEOUT</code> para <strong><code>HSE_STARTUP_TIMEOUT*2</code></strong>:</p>
+<div class="highlight"><pre><span></span>} while((HSEStatus == 0) &amp;&amp; (StartUpCounter != HSE_STARTUP_TIMEOUT*2));
+</pre></div>
+
+
+<p>Isso dará mais tempo para o cristal estabilizar.</p>
+<p>No arquivo <code>stm32f10x_conf.h</code>, comente os periféricos que não serão usados no projeto e descomente os que serão usados.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>O mínimo que se deve fazer ao instalar o Windows 10 - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2016/08/15/o-minimo-que-se-deve-fazer-ao-instalar-o-windows-10/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="windows,group policy" />
+        <meta name="description" content="Após recentemente fazer o upgrade do Windows 8 para o Windows 10, me deparei com uma série de problemas. Esta página lista os problemas que eu encontrei e como resolvê-los. Desativar WPAD WPAD é um risco. Logo, precisamos verificar se o WPAD está desativado, indo em Painel de Controle -&gt; Opções ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="O mínimo que se deve fazer ao instalar o Windows 10"/>
+        <meta property="og:url" content="../../../../../artigos/2016/08/15/o-minimo-que-se-deve-fazer-ao-instalar-o-windows-10/"/>
+        <meta property="og:description" content="Após recentemente fazer o upgrade do Windows 8 para o Windows 10, me deparei com uma série de problemas. Esta página lista os problemas que eu encontrei e como resolvê-los. Desativar WPAD WPAD é um risco. Logo, precisamos verificar se o WPAD está desativado, indo em Painel de Controle -&gt; Opções ..."/>
+        <meta property="article:published_time" content="2016-08-15" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="windows" />
+            <meta property="article:tag" content="group policy" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2016/08/15/o-minimo-que-se-deve-fazer-ao-instalar-o-windows-10/"
+                       rel="bookmark"
+                       title="Permalink to O mínimo que se deve fazer ao instalar o Windows 10">
+                        O mínimo que se deve fazer ao instalar o Windows 10
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-08-15T18:00:00-03:00"> seg 15 agosto 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/windows/">windows</a>
+        /
+	<a href="../../../../../tag/group-policy/">group policy</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Após recentemente fazer o upgrade do Windows 8 para o Windows 10, me deparei com uma série de problemas. Esta página lista os problemas que eu encontrei e como resolvê-los.</p>
+<h3>Desativar WPAD</h3>
+<p><a href="http://www.csoonline.com/article/3106076/data-protection/disable-wpad-now-or-have-your-accounts-and-private-data-compromised.html">WPAD é um risco</a>. Logo, precisamos verificar se o WPAD está desativado, indo em Painel de Controle -&gt; Opções da Internet -&gt; Conexões -&gt; Configurações da LAN. Na janela, verificar se a opção "Detectar automaticamente as configurações" está desativada.</p>
+<h3>Desativar "telemetria"</h3>
+<p>Microsoft Compatibility Telemetry</p>
+<p>Ir em Menu Iniciar -&gt; Configurações -&gt; Privacidade. Desabilite tudo o que não for necessário.</p>
+<p>Ir em Painel de Controle -&gt; Ferramentas Administrativas -&gt; Serviços.</p>
+<p>Para dessativar cada serviço, clique com o botão direito nele e vá em "Propriedades". Na aba "Geral", mude, se necessário, o "Tipo de inicialização" para "Desativado" e depois clique no botão "<u>Parar</u> o serviço". Desative os serviços:</p>
+<ul>
+<li>Serviço Coletor de Padrões de Hub de Diagnóstico da Microsoft (R)</li>
+<li>Experiências e Telemetria de Usuário Conectado</li>
+</ul>
+<p>Dica: um serviço também pode ser desativado e parado em um prompt elevado com os comandos <code>sc config &lt;serviço&gt; start= disabled</code> e <code>sc stop &lt;serviço&gt;</code>:</p>
+<div class="highlight"><pre><span></span>sc config DiagTrack start= disabled
+sc stop DiagTrack
+</pre></div>
+
+
+<p>O mesmo pode ser feito em um PowerShell elevado com:</p>
+<div class="highlight"><pre><span></span>stop-service diagtrack
+set-service diagtrack -startuptype disabled
+</pre></div>
+
+
+<p>Dica: se você souber o nome do serviço (código) mas não souber o nome de exibição dele (útil ao encontrar uma página em inglês que lista o nome do serviço mas o de exibição está em inglês), é possível usar o comando <code>sc qc &lt;serviço&gt;</code>. O nome de exibição aparecerá no campo <code>NOME_PARA_EXIBIÇÃO</code>:</p>
+<div class="highlight"><pre><span></span>C:\WINDOWS\system32&gt;sc qc diagtrack
+[SC] QueryServiceConfig ÊXITO
+
+NOME_DO_SERVIÇO: diagtrack
+    TIPO                       : 10  WIN32_OWN_PROCESS
+    TIPO_DE_INÍCIO             : 2   AUTO_START
+    CONTROLE_DE_ERRO           : 1   NORMAL
+    NOME_DO_CAMINHO_BINÁRIO    : C:\WINDOWS\System32\svchost.exe -k utcsvc
+    GRUPO_DE_ORDEM_DE_CARREG.  :
+    MARCA                      : 0
+    NOME_PARA_EXIBIÇÃO         : Experiências e Telemetria de Usuário Conectado
+    DEPENDÊNCIAS               : RpcSs
+       NOME_DO_INÍCIO_DO_SERVIÇO  : LocalSystem
+</pre></div>
+
+
+<p>Vá em Menu Iniciar e digite <code>regedit</code>. Vá na chave:</p>
+<div class="highlight"><pre><span></span>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
+</pre></div>
+
+
+<p>Modifique ou adicione, caso ela ainda não exista, um novo "Valor DWORD (32 bits)" chamado <code>AllowTelemetry</code> com o valor <code>0</code> (zero).</p>
+<p>Referências:<br>
+<a href="http://www.thewindowsclub.com/windows-10-telemetry">http://www.thewindowsclub.com/windows-10-telemetry</a><br>
+<a href="http://windowsitpro.com/windows-10/how-turn-telemetry-windows-7-8-and-windows-10">http://windowsitpro.com/windows-10/how-turn-telemetry-windows-7-8-and-windows-10</a></p>
+<h3>Limitar aplicativos em segundo plano</h3>
+<p>Ir em Menu Iniciar -&gt; Configurações -&gt; Privacidade. Na barra lateral à esquerda, ir em "Aplicativos em segundo plano". Desativar tudo o que não for utilizar.</p>
+<h3>Limitar downloads do Windows Update</h3>
+<p>Ir em Painel de Controle -&gt; Feramentas Administrativas -&gt; Política de Segurança Local (Ou Menu Iniciar -&gt; Editar política de grupo ou <code>gpedit.msc</code>).</p>
+<p>Navegue para Configuração do Computador -&gt; Modelos Administrativos -&gt; Rede -&gt; BITS (Background Intelligent Transfer Service.</p>
+<p>Altere a opção "Limite a largura de banda da rede máxima para transferências BITS em segundo plano", clicando duas vezes nela. Marque a opção "Habilitado". Mais abaixo, escolha um limite máximo para a taxa de transferência (em Kbps) para os horários definidos. Desmarque a opção "Usar toda a largura de rede não utilizada disponível" e escolha outra velocidade para os demais horários mais abaixo. O mais simples é repetir os valores.</p>
+<p>Se o computador não tiver o Editor de Política de Grupo Local, abra o <code>regedit</code> e vá na chave:</p>
+<div class="highlight"><pre><span></span>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\BITS
+</pre></div>
+
+
+<p>e crie os valores (todos DWORD):</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th align="right">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EnableBITSMaxBandwidth</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>MaxBandwidthValidFrom</td>
+<td align="right">&lt;hora de início&gt;</td>
+</tr>
+<tr>
+<td>MaxBandwidthValidTo</td>
+<td align="right">&lt;hora de final&gt;</td>
+</tr>
+<tr>
+<td>MaxTransferRateOffSchedule</td>
+<td align="right">&lt;valor em Kbps&gt;</td>
+</tr>
+<tr>
+<td>MaxTransferRateOnSchedule</td>
+<td align="right">&lt;valor em Kbps&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Referência:<br>
+<a href="http://answers.microsoft.com/en-us/windows/forum/windows_7-networking/windows-update-takes-all-my-bandwidth/e2edb296-5501-4843-ae33-eaac11e1adb1?auth=1">http://answers.microsoft.com/en-us/windows/forum/windows_7-networking/windows-update-takes-all-my-bandwidth/e2edb296-5501-4843-ae33-eaac11e1adb1?auth=1</a></p>
+<h3>Impedir reinícios automáticos após updates</h3>
+<p>Ir em Painel de Controle -&gt; Feramentas Administrativas -&gt; Política de Segurança Local (Ou Menu Iniciar -&gt; Editar política de grupo ou <code>gpedit.msc</code>).</p>
+<p>Navegue para Configuração do Computador -&gt; Modelos Administrativos -&gt; Componentes do Windows -&gt; Windows Update.</p>
+<p>Altere a opção "Não há reinicializações automáticas para usuários conectados, referentes às instalações de atualizações automáticas agendadas", clicando duas vezes nela. Marque a opção "Habilitado" e clique em OK.</p>
+<p>Se o computador não tiver o Editor de Política de Grupo Local, abra o <code>regedit</code> e vá na chave:</p>
+<div class="highlight"><pre><span></span>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
+</pre></div>
+
+
+<p>Pode ser que as chaves <code>WindowsUpdate</code> e <code>AU</code> não estejam criadas. Neste caso, crie-as clicando com o botão direito do mouse e selecione Novo -&gt; Chave.</p>
+<p>e crie o valor (DWORD):</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th align="right">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NoAutoRebootWithLoggedOnUsers</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Reinicie o computador.</p>
+<p>Referência:<br>
+<a href="http://lifehacker.com/stop-windows-from-restarting-your-computer-after-update-509712123">http://lifehacker.com/stop-windows-from-restarting-your-computer-after-update-509712123</a></p>
+<h3>Configuração do Windows Update</h3>
+<p>O Windows 10 baixa e instala atualizações a qualquer momento, e não permite a configuração direta de quando baixar ou agendar a instalação. Isto faz com que de vez em quando o computador pare completamente e fique um processo chamado de "Windows Modules Installer Worker" usando todos os recursos do computador (CPU e disco) o que faz com que seja impossível trabalhar. Para evitar isso, podemos fazer a configuração do Windows Update.</p>
+<p>Ir em Painel de Controle -&gt; Feramentas Administrativas -&gt; Política de Segurança Local (Ou Menu Iniciar -&gt; Editar política de grupo ou <code>gpedit.msc</code>).</p>
+<p>Navegue para Configuração do Computador -&gt; Modelos Administrativos -&gt; Componentes do Windows -&gt; Windows Update.</p>
+<p>Altere a opção "Configurar Atualizações Automáticas", clicando duas vezes nela. Marque a opção "Habilitado" e selecione as opções desejadas na caixa "Opções". Eu prefiro selecionar a opção "2 - Avisar antes de baixar e instalar qualquer atualização". Também é possível selecionar </p>
+<p>Se o computador não tiver o Editor de Política de Grupo Local, abra o <code>regedit</code> e vá na chave:</p>
+<div class="highlight"><pre><span></span>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
+</pre></div>
+
+
+<p>Pode ser que as chaves <code>WindowsUpdate</code> e <code>AU</code> não estejam criadas. Neste caso, crie-as clicando com o botão direito do mouse e selecione Novo -&gt; Chave.</p>
+<p>e crie o valor (DWORD):</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th align="right">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AUOptions</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>NoAutoUpdate</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>AutomaticMaintenanceEnabled</td>
+<td align="right">&lt;1 se quiser instalar automaticamente na manutenção agendada&gt;</td>
+</tr>
+<tr>
+<td>ScheduledInstallDay</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>ScheduledInstallTime</td>
+<td align="right">&lt;hora de início dos updates&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Veja os detalhes das opções nas referências.</p>
+<p>Reinicie o computador.</p>
+<p>Referências:<br>
+<a href="http://winintro.com/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.WindowsUpdate::AutoUpdateCfg&amp;Language=pt-br">http://winintro.com/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.WindowsUpdate::AutoUpdateCfg&amp;Language=pt-br</a><br>
+<a href="https://technet.microsoft.com/pt-br/library/cc708449(v=ws.10).aspx">https://technet.microsoft.com/pt-br/library/cc708449(v=ws.10).aspx</a></p>
+<h3>Evitar que o Music Application rode</h3>
+<p>Gasto enorme de CPU quando ele trava. Para desinstalá-lo de uma vez, abra o PowerShell como administrador e rode:</p>
+<div class="highlight"><pre><span></span>Get-AppxPackage *zunemusic* | Remove-AppxPackage
+</pre></div>
+
+
+<p>Dá pra desinstalar outros apps padrão, caso eles dêem problema.</p>
+<p>Referência:<br>
+<a href="http://www.howtogeek.com/224798/how-to-uninstall-windows-10s-built-in-apps-and-how-to-reinstall-them/">http://www.howtogeek.com/224798/how-to-uninstall-windows-10s-built-in-apps-and-how-to-reinstall-them/</a></p>
+<h3>Atualizar os demais aplicativos</h3>
+<p>Em geral os apps da loja atualizam sozinhos, mas fica a dica para procurar atualizações manualmente ou para descobrir o nome dos apps que vieram instalados por padrão e que você quer remover pelo método acima e não sabia.</p>
+<p>Vá em Iniciar -&gt; Loja. Clique no botão à direita da janela, à esquerda da caixa "Pesquisar". O botão, não parece um botão, é o avatar do seu usuário, mas é clicável. Vá em "Downloads e Atualizações". Para atualizar, use o botão "Procurar atualizações". Se quiser remover algo, use partes do nome com o comando do PowerShell:</p>
+<div class="highlight"><pre><span></span>Get-AppxPackage *partedonome*
+</pre></div>
+
+
+<p>Se retornar apenas um aplicativo, use o método acima para removê-lo.</p>
+<p>Referência:<br>
+<a href="https://support.microsoft.com/en-us/instantanswers/b5e4e2e4-cc9d-47ef-8782-7a1c81e735ef/check-for-updates-for-apps-and-games-from-windows-store">https://support.microsoft.com/en-us/instantanswers/b5e4e2e4-cc9d-47ef-8782-7a1c81e735ef/check-for-updates-for-apps-and-games-from-windows-store</a></p>
+<h3>Processos desenfreados do WMI</h3>
+<p>Se o WMI Provider Host estiver usando muita CPU, primeiro tente reiniciar o computador :-D. Se não funcionar, abra um prompt de comando <strong>elevado</strong> (Abrir menu iniciar e clicar com botão direito em "Prompt de Comando" e clicar em "Executar como administrador").</p>
+<p>Execute o seguinte comando:</p>
+<div class="highlight"><pre><span></span>sc config winmgmt type= own
+</pre></div>
+
+
+<p>Reinicie o serviço do WMI:</p>
+<div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">stop</span> <span class="n">winmgmt</span> <span class="o">&amp;&amp;</span> <span class="n">net</span> <span class="n">start</span> <span class="p">[</span><span class="n">service</span> <span class="n">name</span><span class="p">]</span><span class="err">'</span>
+</pre></div>
+
+
+<p>Verifique com o comando <code>sc query winmgmt</code> se há a informação:</p>
+<div class="highlight"><pre><span></span><span class="n">TIPO</span>                       <span class="o">:</span> <span class="mi">10</span>  <span class="n">WIN32_OWN_PROCESS</span>
+</pre></div>
+
+
+<p>o que indica que o serviço está rodando em seu próprio processo.</p>
+<p>Descubra qual o processo errado com o Process Explorer e mande para o espaço. Se o ProcExp não descobrir, siga as instruções da referência mais abaixo para usar o PerfMon.</p>
+<p>Para desfazer a alteração:</p>
+<div class="highlight"><pre><span></span>sc config winmgmt type= share
+</pre></div>
+
+
+<p>A saída do comando <code>sc query winmgmt</code> agora deverá ter o tipo <code>WIN32_SHARE_PROCESS</code>.</p>
+<p>Referência:<br>
+<a href="https://blogs.technet.microsoft.com/askperf/2014/08/12/wmi-how-to-troubleshoot-high-cpu-usage-by-wmi-components/">https://blogs.technet.microsoft.com/askperf/2014/08/12/wmi-how-to-troubleshoot-high-cpu-usage-by-wmi-components/</a></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

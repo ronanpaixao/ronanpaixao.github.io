@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>ChaVANT - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2010/11/02/chavant/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="AHRS,chavant,controle de atitude,IMU,navegação inercial,piloto automático,Projeto" />
+        <meta name="description" content="O Projeto ChaVANT consiste na construção de um piloto automático para o Projeto VANT. Também é o Projeto Final de Conclusão (PFC) do autor, como requisito para graduação em Engenharia Eletrônica, pelo Instituto Militar de Engenharia. Para a construção de um piloto automático, é necessário desenvolver diversas tecnologias e componentes ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="ChaVANT"/>
+        <meta property="og:url" content="../../../../../artigos/2010/11/02/chavant/"/>
+        <meta property="og:description" content="O Projeto ChaVANT consiste na construção de um piloto automático para o Projeto VANT. Também é o Projeto Final de Conclusão (PFC) do autor, como requisito para graduação em Engenharia Eletrônica, pelo Instituto Militar de Engenharia. Para a construção de um piloto automático, é necessário desenvolver diversas tecnologias e componentes ..."/>
+        <meta property="article:published_time" content="2010-11-02" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="AHRS" />
+            <meta property="article:tag" content="chavant" />
+            <meta property="article:tag" content="controle de atitude" />
+            <meta property="article:tag" content="IMU" />
+            <meta property="article:tag" content="navegação inercial" />
+            <meta property="article:tag" content="piloto automático" />
+            <meta property="article:tag" content="Projeto" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2010/11/02/chavant/"
+                       rel="bookmark"
+                       title="Permalink to ChaVANT">
+                        ChaVANT
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2010-11-02T18:26:00-02:00"> ter 02 novembro 2010</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/ahrs/">AHRS</a>
+        /
+	<a href="../../../../../tag/chavant/">chavant</a>
+        /
+	<a href="../../../../../tag/controle-de-atitude/">controle de atitude</a>
+        /
+	<a href="../../../../../tag/imu/">IMU</a>
+        /
+	<a href="../../../../../tag/navegacao-inercial/">navegação inercial</a>
+        /
+	<a href="../../../../../tag/piloto-automatico/">piloto automático</a>
+        /
+	<a href="../../../../../tag/projeto/">Projeto</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>O Projeto ChaVANT consiste na construção de um piloto automático para o
+<a href="../../../../../projetos/2010/03/24/projeto-vant---veiculo-aereo-nao-tripulado/">Projeto
+VANT</a>.
+Também é o Projeto Final de Conclusão (PFC) do autor, como requisito para
+graduação em Engenharia Eletrônica, pelo <a href="http://www.ime.eb.br">Instituto Militar de
+Engenharia</a>.</p>
+<p>Para a construção de um piloto automático, é necessário desenvolver
+diversas tecnologias e componentes:</p>
+<ul>
+<li>Plataforma de aquisição de medidas de sensores inerciais (UMI, de
+  Unidade de Medida Inercial, ou IMU, de <a href="http://en.wikipedia.org/wiki/Inertial_measurement_unit"><em>Inertial Measurement
+  Unit</em></a>).</li>
+<li>Processamento dos dados adquiridos para indicar a orientação da
+  plataforma (AHRS, de <a href="http://en.wikipedia.org/wiki/Attitude_and_Heading_Reference_Systems"><em>Attitude and Heading Reference
+  Systems</em></a>,
+  ou Sistema de Referência de Atitude e Rumo).</li>
+<li>Sistema para navegação inercial completa, que inclui a utilização de
+  técnicas como <a href="http://en.wikipedia.org/wiki/Dead_reckoning">Dead
+  Reckoning</a> e pode
+  incluir integração com <a href="http://en.wikipedia.org/wiki/GPS">GPS</a>.</li>
+<li>Aplicativo para visualização das informações geradas em
+  um computador.</li>
+<li>Aplicativo para planejamento e controle de missões.</li>
+<li>Obtenção do modelo matemático da aeronave.</li>
+<li>Técnicas de controle para realizar a estabilização e manutenção da
+  atitude da aeronave, assim como para seguir percursos.</li>
+</ul>
+<p>Destes objetivos, já se alcançou o nível de um AHRS, onde a plataforma
+indentifica sua orientação (atitude). Junto com isto, já existe um
+aplicativo para observação das informações geradas, assim como um modelo
+3D da aeronave e um horizonte artificial para auxílio à pilotagem.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YKGQxoAYOws" frameborder="0" allowfullscreen></iframe>
+
+<h3>Notícias:</h3>
+<p><strong>13/08/2010</strong>: Finalização da primeira fase do Projeto ChaVANT com a
+apresentação do Projeto Final de Conclusão. O trabalho recebeu nota 10
+pela banca.</p>
+<p><strong>19/10/2010</strong>: Projeto ChaVANT é escolhido como o melhor PFC do ano da
+Seção de Engenharia Elétrica (SE/3), sendo indicado para apresentação no
+XI Encontro de Iniciação Científica do <a href="http://ime.eb.br">IME</a>, parte da
+Semana de Ciência e Tecnologia.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

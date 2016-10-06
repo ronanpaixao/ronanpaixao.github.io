@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Equações numeradas no Pelican - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2015/11/02/equacoes-numeradas-no-pelican/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="pelican,plugin,mathjax,equação,python" />
+        <meta name="description" content="Depois de muuuuito ralar atrás de uma solução para o port do meu artigo sobre modelagem de motores (muitos dias já perdidos nessa brincadeira), consegui uma solução aceitável. É fato que existem muitas deficiências das linguagens de markup simplificadas em relação a algumas já estabelecidas. Não dá pra comparar a ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Equações numeradas no Pelican"/>
+        <meta property="og:url" content="../../../../../artigos/2015/11/02/equacoes-numeradas-no-pelican/"/>
+        <meta property="og:description" content="Depois de muuuuito ralar atrás de uma solução para o port do meu artigo sobre modelagem de motores (muitos dias já perdidos nessa brincadeira), consegui uma solução aceitável. É fato que existem muitas deficiências das linguagens de markup simplificadas em relação a algumas já estabelecidas. Não dá pra comparar a ..."/>
+        <meta property="article:published_time" content="2015-11-02" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="pelican" />
+            <meta property="article:tag" content="plugin" />
+            <meta property="article:tag" content="mathjax" />
+            <meta property="article:tag" content="equação" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2015/11/02/equacoes-numeradas-no-pelican/"
+                       rel="bookmark"
+                       title="Permalink to Equações numeradas no Pelican">
+                        Equações numeradas no Pelican
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-11-02T23:13:00-02:00"> seg 02 novembro 2015</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/pelican/">pelican</a>
+        /
+	<a href="../../../../../tag/plugin/">plugin</a>
+        /
+	<a href="../../../../../tag/mathjax/">mathjax</a>
+        /
+	<a href="../../../../../tag/equacao/">equação</a>
+        /
+	<a href="../../../../../tag/python/">python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Depois de muuuuito ralar atrás de uma solução para o port do meu <a href="{filename}/Artigos/Motor/motor.rst">artigo sobre 
+modelagem de motores</a> (muitos dias já 
+perdidos nessa brincadeira), consegui uma solução aceitável.</p>
+<p>É fato que existem muitas deficiências das linguagens de markup simplificadas 
+em relação a algumas já estabelecidas. Não dá pra comparar a expressividade de 
+um HTML ou LaTeX com as do Markdown ou reStructuredText.</p>
+<p>Apesar deste último até permitir muita coisa quando usado através do
+<a href="http://sphinx-doc.org/">Sphinx</a>, uma parte grande (grande demais) destes 
+recursos não são nativos ao <a href="http://docutils.sourceforge.net">Docutils</a>.
+Infelizmente, o <a href="http://getpelican.com/">Pelican</a> usa o Docutils diretamente,
+sem recorrer ao Sphinx. Ou seja: muita coisa é perdida no processo, pois
+muitos recursos são do próprio Sphinx ou de plugins dele. Da mesma forma,
+não é tão simples portar os plugins do Sphinx para o Pelican, pois muitos
+usam recursos inerentes da ferramenta e o port passa a ficar complicado.
+Afinal, o código do Docutils é bem embolado <i class="fa fa-thumbs-down"></i>.</p>
+<p>Enfim, fiz alguns testes para tentar descobrir qual linguagem suportada
+seria mais adequada ao artigo, feito originalmente em LaTeX. Tecnicamente
+o ponto de partida seria o mesmo: o arquivo original que usei para escrever
+o artigo ou o arquivo do wiki (<a href="http://dokuwiki.org/">DokuWiki</a>) que eu
+estou convertendo.</p>
+<p>Dos meus testes, o resultado foi uma solução mista. Converti o arquivo
+LaTeX tanto para Markdown quanto pra ReST, e descobri que devido à
+quase completa ausência de referências cruzadas do Markdown, seria
+muito mais provável obter melhor resultado com o ReST. Já as figuras,
+reaproveitei as que eu usei no wiki, que outrora eu havia convertido
+para SVG.</p>
+<p>Enfim, fiquei com um arquivo ReST (todo quebrado, diga-se de passagem)
+e alguns PNG e SVG. Ajustei os metadados e comecei a quebrar a cabeça.
+Uma olhada geral me indicou que meus problemas principais seriam as
+figuras e as equações.</p>
+<h2>Figuras</h2>
+<p>Em primeiro lugar, as figuras estavam quebradas porque, bem, a sintaxe estava
+bem ruim após a conversão. Eu tinha coisas do tipo</p>
+<div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> Modelo
+   <span class="nc">:alt:</span> <span class="nf">Parte elétrica (esquerda) e análogo elétrico da parte mecânica</span>
+   (direita).
+
+   Parte elétrica (esquerda) e análogo elétrico da parte mecânica
+   (direita).
+</pre></div>
+
+
+<p>Não muito útil, primeiro pela óbvia duplicidade de informações, segundo pela
+falta de qualquer forma de referenciar a imagem e terceiro porque o nome do
+arquivo não indicava arquivo nenhum (no LaTeX é possível/obrigatório omitir 
+as extensões dos arquivos de imagens).</p>
+<p>Depois de renomear o arquivo para algo mais útil e de vários testes, fiquei
+com o seguinte resultado</p>
+<div class="highlight"><pre><span></span><span class="p">..</span> <span class="nt">_fig_analogo:</span>
+
+<span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> {filename}./modelo-motor.png
+   <span class="nc">:alt:</span> <span class="nf">Parte elétrica (esquerda) e análogo elétrico da parte mecânica (direita).</span>
+</pre></div>
+
+
+<p>Isto resolveu o terceiro problema (com o prefixo necessário ao Pelican) e
+resolveu parcialmente o primeiro e segundo problemas.</p>
+<p>O primeiro problema foi resolvido parcialmente porque apesar de eu poder
+referenciar a imagem a partir de qualquer lugar usando o link para
+<code>fig_analogo_</code>, eu ainda não possuía a numeração automática que queria.</p>
+<p>A segunda solução foi apenas retirar uma das descrições duplicadas, mas
+usar o tag <code>:alt:</code> fez a informação não ficar mais rapidamente identificável
+e eu ainda não tinha a numeração automática.</p>
+<p>Busquei muitas soluções na internet, mas o mais próximo que encontrei foi o
+plugin <a href="http://duncanlock.net/blog/2013/05/29/better-figures-images-plugin-for-pelican/">Better Figures &amp; Images</a>,
+que diz possuir o seguinte recurso:</p>
+<blockquote>
+<p>Inserts automatic figure numbers into figure captions, if 
+<code>FIGURE_NUMBERS == True</code> in global config, or figure_numbers exists in article 
+metadata.</p>
+</blockquote>
+<p>No entanto, este plugin não funciona com SVG (que é colocado em um tag
+<code>&lt;object&gt;</code> pelo Pelican) e ainda adiciona a palavra "Figure" antes do número,
+o que é bom em termos da palavra estar ali, mas para artigos em português
+obviamente não fica certo.</p>
+<p>Depois de muito cavucar, acabei tomando o caminho de aprender a fazer um plugin
+e fiz um similar, mas com os recursos que eu queria (e usando o 
+<a href="http://lxml.de/">lxml</a> em vez do BeautifulSoup).</p>
+<p><i class="fa fa-chain-broken"></i> TODO: colocar em um repositório e colocar um link.</p>
+<p>O resultado foi um plugin que processa o conteúdo quando já está em HTML,
+coloca o texto alt como um <code>&lt;span&gt;</code> e adiciona o mesmo texto, mas permitindo
+que o prefixo seja configurável no <code>pelicanconf.py</code>.</p>
+<p>Ainda, o plugin busca no texto todos os links que fazem referência ao <em>anchor</em>
+(tag <code>&lt;a&gt;</code>) da figura, e substitui o texto pelo número da figura. Assim, no
+caso do exemplo anterior, o <code>fig_analogo_</code> do documento, que antes se
+transformaria no HTML</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"reference internal"</span> <span class="na">href</span><span class="o">=</span><span class="s">"#fig-analogo"</span><span class="p">&gt;</span>fig_analogo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>se transforma em</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"reference internal"</span> <span class="na">href</span><span class="o">=</span><span class="s">"#fig-analogo"</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>É claro, o trabalho até chegar nesta forma de resolver o problema não foi
+tão simples quanto parece.</p>
+<h2>Equações</h2>
+<p>O segundo problema deu mais trabalho do que o primeiro, pois foi necessário
+entender como os três sistemas (Pelican, Docutils e 
+<a href="https://www.mathjax.org/">MathJax</a>) interagem entre si.</p>
+<p>Comecei observando como a diretiva <code>.. math::</code> respondia a algumas entradas.
+Curiosamente, esta diretiva do ReST coloca a equação entre <code>\begin{equation*}</code>
+e <code>\end{equation*}</code>.</p>
+<p>Depois de muito procurar, descobri que a função do Docutils que coloca os
+tags de ambiente no início e fim se encontra no arquivo
+<code>docutils/utils/math/__init__.py</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pick_math_environment</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">numbered</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">"""Return the right math environment to display `code`.</span>
+
+<span class="sd">    The test simply looks for line-breaks (``\\``) outside environments.</span>
+<span class="sd">    Multi-line formulae are set with ``align``, one-liners with</span>
+<span class="sd">    ``equation``.</span>
+
+<span class="sd">    If `numbered` evaluates to ``False``, the "starred" versions are used</span>
+<span class="sd">    to suppress numbering.</span>
+<span class="sd">    """</span>
+    <span class="c1"># cut out environment content:</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">r'\begin{'</span><span class="p">)</span>
+    <span class="n">toplevel_code</span> <span class="o">=</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">chunk</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">r'\end{'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                             <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">toplevel_code</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">r'</span><span class="se">\\</span><span class="s1">'</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="s1">'align'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="s1">'equation'</span>
+<span class="hll">    <span class="k">if</span> <span class="ow">not</span> <span class="n">numbered</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">env</span> <span class="o">+=</span> <span class="s1">'*'</span>
+</span>    <span class="k">return</span> <span class="n">env</span>
+</pre></div>
+
+
+<p>Observe que, estranhamente, esta função <strong>suporta sim</strong> a numeração! No 
+entanto, buscando mais fundo descobri que tal função sequer é chamada
+com o kwarg <code>numbered</code> definido, ficando então com seu valor-padrão <code>False</code>.</p>
+<p>Do arquivo <code>docutils/writers/html4css1/__init__.py</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visit_math_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="c1"># print node.astext().encode('utf8')</span>
+<span class="hll">    <span class="n">math_env</span> <span class="o">=</span> <span class="n">pick_math_environment</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">astext</span><span class="p">())</span>
+</span>    <span class="bp">self</span><span class="o">.</span><span class="n">visit_math</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">math_env</span><span class="o">=</span><span class="n">math_env</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Droga! Eu poderia modificar diretamente aqui, mas esse hack <s>com certeza</s>
+provavelmente quebraria com qualquer atualização, sem que eu perceba. Assim, 
+resolvi fazer um plugin também.</p>
+<p>Inicialmente, tentei portar a diretiva do Sphinx, sem sucesso. Depois tentei
+criar minhas próprias diretivas para equações e referências a equações, mas
+também não tive muito sucesso (o Docutils <em>realmente</em> tem uma péssima
+documentação, e <em>"use the source"</em> sempre foi uma desculpa esfarrapada).</p>
+<p>Enfim, depois de muito bater a cabeça, acabei na solução mais simples e menos
+elegante: mais um plugin para manipular o conteúdo em HTML. Percebi com alguns
+testes que o recurso de referências do próprio MathJax funcionava, porém ele
+quebrava com meus plugins do Liquid Tags. Os desativei e as referências usando
+os tags <code>\label{}</code> e <code>\ref{}</code> no próprio MathJax começaram a funcionar.</p>
+<p>A partir daí foi mais fácil. Pensei primeiro em simplesmente substituir os
+<code>equation*</code> por <code>equation</code>, mas isto poderia quebrar algumas coisas. Então fiz
+o plugin buscar pelos <code>\begin{equation*}</code> e <code>\end{equation*}</code> e os substituí.
+De quebra, deixei mais elegante ao substituir somente caso eu encontre algum
+<code>\label{}</code> dentro, afinal não tem sentido colocar numeração em equações que
+nem serão referenciadas.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt_br" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Power MOSFETs (MOSFETs de potência) - Paixão por Eletrônica</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="../../../../../artigos/2011/09/06/Power-MOSFETs/">
+
+        <meta name="author" content="Ronan Paixão" />
+        <meta name="keywords" content="MOSFET,eletrônica,transistores de potência" />
+        <meta name="description" content="Transistores bipolares de junção (TBJ) são transistores que conduzem quando há uma corrente passando por sua base. Neste sentido, eles podem ser encarados como fontes de corrente controladas a corrente. Já os transistores do tipo MOSFET (Metal Oxide Semiconductor Field-Effect Transistor) conduzem quando uma tensão é aplicada no seu terminal ..." />
+
+        <meta property="og:site_name" content="Paixão por Eletrônica" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Power MOSFETs (MOSFETs de potência)"/>
+        <meta property="og:url" content="../../../../../artigos/2011/09/06/Power-MOSFETs/"/>
+        <meta property="og:description" content="Transistores bipolares de junção (TBJ) são transistores que conduzem quando há uma corrente passando por sua base. Neste sentido, eles podem ser encarados como fontes de corrente controladas a corrente. Já os transistores do tipo MOSFET (Metal Oxide Semiconductor Field-Effect Transistor) conduzem quando uma tensão é aplicada no seu terminal ..."/>
+        <meta property="article:published_time" content="2011-09-06" />
+            <meta property="article:section" content="artigos" />
+            <meta property="article:tag" content="MOSFET" />
+            <meta property="article:tag" content="eletrônica" />
+            <meta property="article:tag" content="transistores de potência" />
+            <meta property="article:author" content="Ronan Paixão" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../../theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="../../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../../" class="navbar-brand">
+Paixão por Eletrônica            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="http://ronan.dapaixao.com.br">Início</a></li>
+                         <li><a href="../../../../../sobre-o-autor/">
+                             Sobre o autor
+                          </a></li>
+                        <li class="active">
+                            <a href="../../../../../categoria/artigos/">Artigos</a>
+                        </li>
+                        <li >
+                            <a href="../../../../../categoria/projetos/">Projetos</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../../artigos/2011/09/06/Power-MOSFETs/"
+                       rel="bookmark"
+                       title="Permalink to Power MOSFETs (MOSFETs de potência)">
+                        Power MOSFETs (MOSFETs de potência)
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2011-09-06T10:33:00-03:00"> ter 06 setembro 2011</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../../tag/mosfet/">MOSFET</a>
+        /
+	<a href="../../../../../tag/eletronica/">eletrônica</a>
+        /
+	<a href="../../../../../tag/transistores-de-potencia/">transistores de potência</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Transistores bipolares de junção (TBJ) são transistores que conduzem quando há uma corrente passando por sua base. Neste sentido, eles podem ser encarados como fontes de corrente controladas a corrente.</p>
+<p>Já os transistores do tipo <a href="https://en.wikipedia.org/wiki/MOSFET">MOSFET</a> (Metal Oxide Semiconductor Field-Effect Transistor) conduzem quando uma tensão é aplicada no seu terminal de <strong>gate</strong>, ou porta.
+Neste sentido, em princípio eles exigem pouquíssima corrente, o que os torna mais adequados para uso com microcontroladores.
+Além disso, dependendo das correntes envolvidas, pode não ser necessário utilizar um resistor no gate, que é obrigatório no TBJ.</p>
+<p>Existem dois tipos básicos de MOSFETs: os de depleção (depletion) e os de intensificação (enhancement).
+Os MOSFETs de depleção costumam estar sempre ativos, exigindo uma tensão no gate para serem abertos.
+Já os de intensificação costumam estar abertos, exigindo uma tensão para fechá-los.
+Os de intensificação são os mais comuns e esta página trata sobre MOSFETs de potência deste tipo.</p>
+<p>Ainda, os MOSFETs podem ser classificados como <strong>canal-N</strong> e <strong>canal-P</strong>, ou seja, canais negativos ou positivos.
+Ambos podem ser utilizados no acionamento de dispositivos de potência, e muitas vezes ambos podem ser usados ao mesmo tempo, como por exemplo em uma <a href="https://en.wikipedia.org/wiki/H_bridge">Ponte-H</a>.</p>
+<h3>Limitações do Gate</h3>
+<p>Atenção especial deve ser dada para evitar ultrapassar a tensão máxima no gate.
+Isto vem do fato da camada de óxido do gate ser muito fina e por isso seu dielétrico pode ser facilmente rompido, danificando o componente.</p>
+<p>Mesmo com a tensão de acionamento do gate sendo mantida em níveis abaixo do máximo, é possível danificar o gate devido às suas indutância e capacitância intrínsecas.
+Além disso, também é possível alcançar tensões superiores à desejada a partir de transientes no circuito de drain, alcançando o gate através da capacitância drain-gate.
+Ou seja, transientes entre os terminais drain-source (como os causados pelo próprio acionamento do FET) causam transientes no gate.</p>
+<p>Podem ser usados diodos do tipo zener para proteger o gate de transientes impondo uma limitação na tensão.
+Todavia, esta medida também pode atrapalhar, pois isto causa oscilações e a redução da impedância no gate (o que agrava problemas causados por alta impedância no driver do gate).
+Se for realmente necessário o uso do diodo zener, é recomendado usar uma resistência pequena entre o zener e o gate.</p>
+<p>Este resistor também pode ser usado para limitar a corrente causada pela capacitância do gate, caso o driver não aguente as correntes no transiente.
+No entanto, isso faz com que o chaveamento demore ainda mais, aumentando a dissipação causada pelo chaveamento.
+A melhor solução para este caso é utilizar um driver próprio para MOSFETs, capazes de prover grandes correntes nos transientes.</p>
+<h3>Gate drive</h3>
+<p>A maioria dos MOSFETs de potência têm seu <span class="math">\(r_{DS(on)}\)</span> especificado para Vgs=10V ou mais, sendo que alguns exigem no mínimo 4V simplesmente para serem acionados, exigindo muito mais para alcançarem suas especificações máximas.
+Normalmente, os datasheets destes FETs possuem um gráfico <span class="math">\(V_{DS}\times I_D\)</span> onde aparecem várias curvas para Vgs diferentes e é possível ver esta característica claramente.
+Para piorar a situação, nem sempre as saídas lógicas têm seu valor bem definido.
+Um <a href="http://www.atmel.com/dyn/products/product_card.asp?part_id=4198">Atmega328p</a>, o microcontrolador usado no Arduino, quando alimentado a 5V tem sua saída mínima de 4.2V quando em alto.
+Ou seja, no pior caso mal consegue acionar o MOSFET, quiçá chegar em sua especificação máxima de corrente.
+Imagine então se ele for operar em uma tensão mais baixa, como os 3.3V máximos da maioria dos microcontroladores ARM: o FET nem irá ser acionado.</p>
+<p>Para evitar este problema, pode-se ou usar um MOSFET de nível lógico ou um driver.</p>
+<p>Um MOSFET de nível lógico é um transistor preparado com uma camada mais fina de óxido no gate, o que diminui sua tensão de <em>threshold</em>.
+Isso permite seu acionamento a partir de dispositivos lógicos normalmente de 5V (sem limitação na corrente) e até mesmo de 3.3V (com limitação na corrente devido a Vgs).</p>
+<p>A segunda solução é usar um driver. Existem vários tipos de drivers de gate. Os mais usados em aplicações simples são os feitos com <a href="https://en.wikipedia.org/wiki/Opto-isolator">optoacopladores</a> (como o <a href="https://www.google.com.br/search?q=4n27+datasheet">4n27</a>, <a href="https://www.google.com.br/search?q=SFH6701+datasheet">SFH6701</a> e <a href="https://www.google.com.br/search?q=TLP621+datasheet">TLP621</a>) ou os drivers próprios pra MOSFETs (como o <a href="https://www.google.com.br/search?q=TC4426+datasheet">TC4426/7/8</a>).</p>
+<p>Para dimensionar o driver, use a calculadora abaixo.</p>
+<h3>Calculadora</h3>
+<script type="text/javascript">
+
+function toFixed(value, precision) {
+    var power = Math.pow(10, precision || 0);
+    return String(Math.round(value * power) / power);
+}
+
+function calc() {
+    var vcc = document.getElementById("Vcc").value;
+    var Vgs = document.getElementById("Vgs").value;
+    var Id = document.getElementById("Id").value;
+    var fg = document.getElementById("Fg").value;
+    var Rds = document.getElementById("Rds").value;
+    var time_rise = (parseFloat(document.getElementById("tdon").value) + parseFloat(document.getElementById("trise").value))*1e-9;
+    var time_fall = (parseFloat(document.getElementById("tdoff").value) + parseFloat(document.getElementById("tfall").value))*1e-9;
+    var time_switch = time_rise + time_fall;
+    var Qg = document.getElementById("Qg").value * 1e-9;
+
+
+    var P = Id*Id*Rds;
+    document.getElementById("P").value = P;
+    var Pch = (vcc/2) * (Id/2) * fg * time_switch;
+    document.getElementById("Pch").value = toFixed(Pch ,3);
+    var Pchd = Vgs * Qg * fg;
+    document.getElementById("Pchd").value = toFixed(Pchd * 1000,3);
+    var Idrv = Qg / Math.max(time_rise, time_fall);
+    document.getElementById("Idrv").value = toFixed(Idrv,3);
+}
+</script>
+
+<form name="MOSFETform">
+
+<style>
+th {
+    font-weight: bold;
+    background-color: #EEE;
+    text-align: left;
+} th, td {
+    padding: 0.3em 0.5em;
+    margin: 0px;
+    vertical-align: top;
+    border: 1px solid #CCC;
+}
+</style>
+<table>
+  <tr><th colspan="3">Dados do circuito</th></tr>
+  <tr><td>VCC</td><td><input type="text" id="Vcc" value="12" size="10"></td><td>V</td></tr>
+  <tr><td>Vgs(on)</td><td><input type="text" id="Vgs" value="5" size="10"></td><td>V</td></tr>
+  <tr><td>Corrente Id</td><td><input type="text" id="Id" value="40" size="10"></td><td>A</td></tr>
+  <tr><td>Frequência de chaveamento do gate</td><td><input type="text" id="Fg" value="20000" size="10"></td><td>Hz</td></tr>
+
+  <tr><th colspan="3">Dados do MOSFET (procurar no datasheet)</th></tr>
+  <tr><td>Rds(on)</td><td><input type="text" id="Rds" value="0.02" size="10"></td><td>Ω</td></tr>
+  <tr><td>td(on) Turn-On Delay Time</td><td><input type="text" id="tdon" value="14" size="10"></td><td>ns</td></tr>
+  <tr><td>tr Rise Time</td><td><input type="text" id="trise" value="101" size="10"></td><td>ns</td></tr>
+  <tr><td>td(off) Turn-Off Delay Time</td><td><input type="text" id="tdoff" value="50" size="10"></td><td>ns</td></tr>
+  <tr><td>tf Fall Time</td><td><input type="text" id="tfall" value="65" size="10"></td><td>ns</td></tr>
+  <tr><td>Qg Total Gate Charge</td><td><input type="text" id="Qg" value="65" size="10"></td><td>nC</td></tr>
+  <tr><td></td><td><input type="button" value="Calcular" onclick="calc()"></td></tr>
+
+  <tr><th colspan="3">Dados calculados</th></tr>
+  <tr><td>Potência dissipada pelo MOSFET em condução</td><td><input type="text" id="P" size="10" style="background-color: lightgray;" readonly></td><td>W</td></tr>
+  <tr><td>Potência dissipada pelo chaveamento do MOSFET (aproximado)</td><td><input type="text" id="Pch" size="10" style="background-color: lightgray;" readonly></td><td>W</td></tr>
+  <tr><td>Potência dissipada pelo driver</td><td><input type="text" id="Pchd" size="10" style="background-color: lightgray;" readonly></td><td>mW</td></tr>
+  <tr><td>Corrente necessária no driver</td><td><input type="text" id="Idrv" size="10" style="background-color: lightgray;" readonly></td><td>A</td></tr>
+</table>
+</form>
+
+<h3>Referências</h3>
+<ul>
+<li><a href="http://robots.freehostia.com/SpeedControl/Mosfets.html">http://robots.freehostia.com/SpeedControl/Mosfets.html</a></li>
+<li><a href="http://www.irf.com/technical-info/appnotes/an-937.pdf">http://www.irf.com/technical-info/appnotes/an-937.pdf</a></li>
+<li><a href="http://www.irf.com/technical-info/appnotes/an-944.pdf">http://www.irf.com/technical-info/appnotes/an-944.pdf</a></li>
+</ul>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://br.linkedin.com/in/ronanpaixao"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-segurança-da-informação✓</abbr>-square fa-lg"></i> Segurança da informação✓</abbr></a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.scipy.org/" target="_blank">
+                SciPy
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://pythonhosted.org/spyder/" target="_blank">
+                Spyder IDE
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Ronan Paixão
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../../theme/js/respond.min.js"></script>
+
+
+</body>
+</html>
